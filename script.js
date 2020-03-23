@@ -20,7 +20,7 @@ if(inputedValue === "?&limit=964"){
             $("#searchPokemon").append(newPokemon)
         }
     })
-    
+
 } else {
     $.ajax({
         url: pokeapiURL,
@@ -33,5 +33,26 @@ if(inputedValue === "?&limit=964"){
     })
 }
 
+
+})
+
+
+$("#compareGO").click(function(){
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
+            "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
+        }
+    }
+    
+    $.ajax(settings).done(function (response) {
+        for (i=0; i< response.length; i++){
+            if (response[i].id === )
+        }
+    });
 
 })
