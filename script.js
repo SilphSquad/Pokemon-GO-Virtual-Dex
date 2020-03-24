@@ -1,4 +1,6 @@
-``
+var pokemonArray = []
+
+
 $("#submit").click(function(){
 $("#searchPokemon").empty();
 var inputedValue = $("#userInput").val()
@@ -27,7 +29,9 @@ if(inputedValue === "pokemon?&limit=964"){
             
             var res = pokemonID.results[i].url.split("/");
             newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
             newPokemon.text(pokemonID.results[i].name)
+            pokemonArray.push(newPokemon)
             $("#searchPokemon").append(newPokemon)
             
         }
@@ -43,6 +47,8 @@ if(inputedValue === "pokemon?&limit=964"){
         
         var res = pokemonID.pokemon[i].url.split("/");
         newPokemon.attr("id", res[6])
+        newPokemon.attr("data","name")
+        pokemonArray.push(newPokemon)
         newPokemon.text(pokemonID.pokemon[i].pokemon.name)
         $("#searchPokemon").append(newPokemon)
         }
@@ -58,7 +64,9 @@ else {
         var newPokemon = $("<p>")
         
         newPokemon.attr("id", pokemonID.id)
+        newPokemon.attr("data","name")
         newPokemon.text(pokemonID.name)
+        pokemonArray.push(newPokemon)
         $("#searchPokemon").append(newPokemon)
 
     })
@@ -67,26 +75,28 @@ else {
 
 })
 
-
-// $("#compareGO").click(function(){
-//     var settings = {
-//         "async": true,
-//         "crossDomain": true,
-//         "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
-//         "method": "GET",
-//         "headers": {
-//             "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
-//             "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
-//         }
-//     }
+console.log(pokemonArray)
+$("#compareGO").click("data-name", function(){
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
+            "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
+        }
+    }
     
-//     $.ajax(settings).done(function (response) {
-//         for (i=0; i< response.length; i++){
-//             if (response[i].id === )
-//         }
-//     });
+    $.ajax(settings).done(function (response) {
+        for (i=0; i< response.length; i++){
+            var goId = response[i].id
+            var pokeID = pokemonArray[i].id
 
-// })
+        }
+    });
+
+})
 
 
 
