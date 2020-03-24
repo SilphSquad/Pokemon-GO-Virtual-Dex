@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PokeGoDex</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <link rel="stylesheer" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 
 <body>
     <nav class="navbar has-background-danger" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <div class="navbar-item has-text-warning">PokeGoDex</div>
+            <div class="navbar-item has-text-warning is-size-3">Pok&eacute;GoDex</div>
         </div>
 
         <div class="navbar-end">
@@ -23,10 +23,10 @@
     <section class="section">
         <div class="container">
             <h1 class="title">
-                Please enter your Pokemon below!
+                Please enter your Pok&eacute;mon below!
             </h1>
             <p class="subtitle">
-                Or use the dropdown for a quick search for generation or type.!
+                Or use the dropdown for a quick search for generation or type!
             </p>
         </div>
     </section>
@@ -38,7 +38,7 @@
                 <input class="input is-rounded is-three-fifths is-offset-one-fifth" type="text"
                     placeholder="Pikachu or Ghost">
                 <button class="button is-rounded column is-narrow">Games</button>
-                <button class="button is-rounded column is-narrow">Pokemon Go</button>
+                <button class="button is-rounded column is-narrow">Pok&eacute;mon Go</button>
                 <div class="column is-4"></div>
             </div>
         </div>
@@ -53,13 +53,14 @@
                     <div class="control">
                       <div class="select is-warning">
                         <select>
-                          <option>Generation One</option>
-                          <option>Generation Two</option>
-                          <option>Generation Three</option>
-                          <option>Generation Four</option>
-                          <option>Generation Five</option>
-                          <option>Generation Six</option>
-                          <option>Generation Seven</option>
+                            <option disabled selected hidden>Choose a generation</option>
+                            <option>Generation One</option>
+                            <option>Generation Two</option>
+                            <option>Generation Three</option>
+                            <option>Generation Four</option>
+                            <option>Generation Five</option>
+                            <option>Generation Six</option>
+                            <option>Generation Seven</option>
                         </select>
                       </div>
                     </div>
@@ -68,6 +69,7 @@
                     <div class="control">
                       <div class="select is-danger">
                         <select>
+                          <option disabled selected hidden>Choose a type</option>
                           <option>Bug</option>
                           <option>Dark</option>
                           <option>Dragon</option>
