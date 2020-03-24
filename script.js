@@ -1,4 +1,4 @@
-
+``
 $("#submit").click(function(){
 var inputedValue = $("#userInput").val()
 
@@ -20,7 +20,10 @@ if(inputedValue === "?&limit=964"){
         method: "GET"
     }).then(function(pokemonID){
         for (i = 0; i < pokemonID.results.length;i++){
-            var newPokemon = $("<li>")
+            var newPokemon = $("<p>")
+            var res = pokemonID.results.url.split("/");
+            newPokemon.attr("class", "modal")
+            newPokemon.attr("id", res[6])
             newPokemon.text(pokemonID.results[i].name)
             $("#searchPokemon").append(newPokemon)
         }
@@ -42,26 +45,25 @@ if(inputedValue === "?&limit=964"){
 })
 
 
-$("#compareGO").click(function(){
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
-            "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
-        }
-    }
+// $("#compareGO").click(function(){
+//     var settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
+//         "method": "GET",
+//         "headers": {
+//             "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
+//             "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
+//         }
+//     }
     
-    $.ajax(settings).done(function (response) {
-        for (i=0; i< response.length; i++){
-            if (response[i].id === )
-        }
-    });
+//     $.ajax(settings).done(function (response) {
+//         for (i=0; i< response.length; i++){
+//             if (response[i].id === )
+//         }
+//     });
 
-})
+// })
 
-$(document).foundation();
 
 
