@@ -1,0 +1,25 @@
+section{
+    border-style: solid;
+    border-color: black;
+}
+
+.has-background-danger {
+    background-color: #ff0000!important;
+}
+
+.has-text-warning {
+    color: #ffde00!important;
+}
+
+.in-pokemon-go {
+    background-color: #008000!important;
+    color: #fff!important;
+}
+
+.not-in-pokemon-go {
+    background-color: #cc0000!important;
+    color: #fff!important;
+}
+
+/* color palette
+#ff0000, #cc0000, #3b4cca, #ffde00 #b3a125 */
