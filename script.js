@@ -24,6 +24,9 @@ if(inputedValue === "pokemon?&limit=964"){
     }).then(function(pokemonID){
         for (i = 0; i < pokemonID.results.length;i++){
             var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
             newPokemon.text(pokemonID.results[i].name)
             $("#searchPokemon").append(newPokemon)
             
@@ -37,7 +40,9 @@ if(inputedValue === "pokemon?&limit=964"){
     }).then(function(pokemonID){
         for (i=0; i<pokemonID.pokemon.length;i++){
         var newPokemon = $("<p>")
-        console.log(pokemonID.pokemon[i].pokemon.name)
+        
+        var res = pokemonID.pokemon[i].url.split("/");
+        newPokemon.attr("id", res[6])
         newPokemon.text(pokemonID.pokemon[i].pokemon.name)
         $("#searchPokemon").append(newPokemon)
         }
@@ -49,7 +54,10 @@ else {
         url: pokeapiURL,
         method: "GET"
     }).then(function(pokemonID){
+
         var newPokemon = $("<p>")
+        
+        newPokemon.attr("id", pokemonID.id)
         newPokemon.text(pokemonID.name)
         $("#searchPokemon").append(newPokemon)
 
