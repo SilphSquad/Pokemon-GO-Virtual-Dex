@@ -1,3 +1,4 @@
+
 $("#submit").click(function(){
 var inputedValue = $("#userInput").val()
 
@@ -60,3 +61,7 @@ $("#compareGO").click(function(){
     });
 
 })
+
+$(document).foundation();
+
+
