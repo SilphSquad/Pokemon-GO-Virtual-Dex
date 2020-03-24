@@ -75,7 +75,6 @@ else {
 
 })
 
-console.log(pokemonArray)
 $("#compareGO").click("data-name", function(){
     var settings = {
         "async": true,
@@ -89,14 +88,27 @@ $("#compareGO").click("data-name", function(){
     }
     
     $.ajax(settings).done(function (response) {
-        for (i=0; i< response.length; i++){
-            var goId = response[i].id
-            var pokeID = pokemonArray[i].id
-
+        var goArray = []
+        $("#searchPokemon").empty()
+        for(var index in response){
+            goArray.push(response[index])
         }
+        console.log(goArray)
+        console.log(pokemonArray)
+
+        for (i=0; i< goArray.length; i++){
+            var goID = goArray[i].id
+            var pokeID = parseInt($(pokemonArray[i]).attr("id"))
+            console.log(goArray[i].id)
+            console.log(parseInt($(pokemonArray[i]).attr("id")))
+            if(goID === pokeID){
+
+
+            } else {
+
+            }
+        }
+
     });
 
 })
-
-
-
