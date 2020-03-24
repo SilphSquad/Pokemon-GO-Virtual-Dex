@@ -1,18 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PokeGoDex</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
-    <title>Home Page</title>
+
 </head>
+
 <body>
-    <h1>This is a heading</h1>
-    <input id="userInput"/>
-    <button id="submit">search</button>
-    <button id="compareGO">GO</button>
-    <ul id="searchPokemon"></ul>
+
+
+    <nav class="navbar has-background-danger" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item has-text-warning is-size-3">Pok&eacute;GoDex</div>
+        </div>
+
+        <div class="navbar-end">
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">
+                Please enter your Pok&eacute;mon below!
+            </h1>
+            <p class="subtitle">
+                Or use the dropdown for a quick search for generation or type!
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-4"></div>
+                <input class="input is-rounded is-three-fifths is-offset-one-fifth" type="text"
+                    placeholder="Pikachu or Ghost">
+                <button class="button is-rounded column is-narrow">Games</button>
+                <button class="button is-rounded column is-narrow">Pok&eacute;mon Go</button>
+                <div class="column is-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column"></div>
+                <div class="field">
+                    <div class="control">
+                      <div class="select is-warning">
+                        <select>
+                            <option disabled selected hidden>Choose a generation</option>
+                            <option>Generation One</option>
+                            <option>Generation Two</option>
+                            <option>Generation Three</option>
+                            <option>Generation Four</option>
+                            <option>Generation Five</option>
+                            <option>Generation Six</option>
+                            <option>Generation Seven</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <div class="select is-danger">
+                        <select>
+                          <option disabled selected hidden>Choose a type</option>
+                          <option>Bug</option>
+                          <option>Dark</option>
+                          <option>Dragon</option>
+                          <option>Electric</option>
+                          <option>Fairy</option>
+                          <option>Fightning</option>
+                          <option>Fire</option>
+                          <option>Flying</option>
+                          <option>Ghost</option>
+                          <option>Grass</option>
+                          <option>Ground</option>
+                          <option>Ice</option>
+                          <option>Normal</option>
+                          <option>Poison</option>
+                          <option>Psychic</option>
+                          <option>Rock</option>
+                          <option>Steel</option>
+                          <option>Water</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                <div class="column"></div>
+                <div class="column"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column"></div>
+                <div class="column is-four-fifths box"></div>
+                <div class="column"></div>
+            </div>
+        </div>
+    </section>
+
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="script.js"></script>
+
 </body>
+
 </html>
