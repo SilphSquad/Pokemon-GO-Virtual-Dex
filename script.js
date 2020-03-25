@@ -116,25 +116,18 @@ $("#genSelect").change("data-option", function(){
 
     if (this.value === "g1"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
-
     }else if (this.value === "g2"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
-
     }else if (this.value === "g3"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
-
     }else if (this.value === "g4"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
-
     }else if (this.value === "g5"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=494&limit=155"
-
     }else if (this.value === "g6"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
-
     }else if (this.value === "g7"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=721&limit=86"
-
     }
     $.ajax({
         url: pokeapiURL,
@@ -238,12 +231,7 @@ $("#compareGO").click("data-name", function(){
             var pokeID = parseInt($(pokemonArray[i]).attr("id"))
             console.log(goArray[i].id)
             console.log(parseInt($(pokemonArray[i]).attr("id")))
-            if(goID === pokeID){
 
-
-            } else {
-
-            }
         }
 
     });
