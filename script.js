@@ -11,55 +11,82 @@ $("#submit").click(function () {
     }
     // console.log(inputedValue)
     var pokeapiURL = "https://pokeapi.co/api/v2/" + inputedValue
-    console.log(pokeapiURL)
+    // console.log(pokeapiURL)
 
     if (inputedValue === "pokemon?&limit=964") {
-
         $.ajax({
             url: pokeapiURL,
             method: "GET"
         }).then(function (pokemonID) {//all
-            for (i = 0; i < pokemonID.results.length; i++) {
-                var newPokemon = $("<div>")
-                var pokeImage = $("<div>")
+            for (i=0; i<pokemonID.results.length; i++){
+            // for (i=0; i<25; i++){
+            var pokemonURL = pokemonID.results[i].url
+            var orderDiv = $("<div>")
+            orderDiv.attr("value", (i+1))
+            $("#searchPokemon").append(orderDiv)
+
+            $.ajax({
+                url: pokemonURL,
+                method: "GET"
+            }).then(function(individualPokemon){
+                var spriteURL = individualPokemon.sprites.front_default
+                var newPokemonDiv = $("<div>")
+                var pokeImageDiv = $("<div>")
+                var pokeImage = $("<img>").attr("src", spriteURL)
                 var pokeFigure = $("<figure>")
-                var imgURL = pokemonID.sprites.front_default
-                var image = $("<img>").attr("src", imgURL)
-                pokeImage.addClass("card-image")
+                var pokemonDexNum = individualPokemon.id
+                var targetDiv = $(`[value=${pokemonDexNum}]`)
+                pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                newPokemon.addClass("card")
-                // newPokemon.text(pokemonID.results[i].name)
-                newPokemon.append(pokeImage)
-                pokeImage.append(pokeFigure)
-                pokeFigure.append(image)
-                $("#searchPokemon").append(newPokemon)
-
-
+                newPokemonDiv.addClass("card")
+                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
+                newPokemonDiv.text(individualPokemon.name)
+                newPokemonDiv.append(pokeImageDiv)
+                pokeImageDiv.append(pokeFigure)
+                pokeFigure.append(pokeImage)
+                targetDiv.append(newPokemonDiv)
+                })
             }
         })
 
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
+
         $.ajax({
             url: pokeapiURL,
             method: "GET"
-        }).then(function (pokemonID) {//type
-            for (i = 0; i < pokemonID.pokemon.length; i++) {
-                var newPokemon = $("<div>")
-                var pokeImage = $("<div>")
+        }).then(function (typeID) {//type
+            for (i=0; i<typeID.pokemon.length; i++){
+            // for (i=0; i<10; i++){
+            var pokemonURL = typeID.pokemon[i].pokemon.url
+            // var orderDiv = $("<div>")
+            // orderDiv.attr("value", (i+1))
+            // $("#searchPokemon").append(orderDiv)
+
+            $.ajax({
+                url: pokemonURL,
+                method: "GET"
+            }).then(function(individualPokemon){
+                var spriteURL = individualPokemon.sprites.front_default
+                var newPokemonDiv = $("<div>")
+                var pokeImageDiv = $("<div>")
+                var pokeImage = $("<img>").attr("src", spriteURL)
                 var pokeFigure = $("<figure>")
-                var imgURL = pokemonID.sprites.front_default
-                var image = $("<img>").attr("src", imgURL)
-                newPokemon.addClass("card")
-                pokeImage.addClass("card-image")
+                var pokemonDexNum = individualPokemon.id
+                // var targetDiv = $(`[value=${pokemonDexNum}]`)
+                pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                // console.log(response)
-                // newPokemon.text(pokemonID.pokemon[i].pokemon.name)
-                newPokemon.append(pokeImage)
-                pokeImage.append(pokeFigure)
-                pokeFigure.append(image)
-                $("#searchPokemon").append(newPokemon)
+                newPokemonDiv.addClass("card")
+                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
+                newPokemonDiv.text(individualPokemon.name)
+                newPokemonDiv.append(pokeImageDiv)
+                pokeImageDiv.append(pokeFigure)
+                pokeFigure.append(pokeImage)
+                $("#searchPokemon").append(newPokemonDiv)
+                // targetDiv.append(newPokemonDiv)
+                })
             }
         })
+
     } else {//individual
         $.ajax({
             url: pokeapiURL,
@@ -73,17 +100,13 @@ $("#submit").click(function () {
             newPokemon.addClass("card")
             pokeImage.addClass("card-image")
             pokeFigure.addClass("image is-128x128")
-            // newPokemon.text(pokemonID.name)
+            newPokemon.text(pokemonID.name)
             newPokemon.append(pokeImage)
             pokeImage.append(pokeFigure)
             pokeFigure.append(image)
             $("#searchPokemon").append(newPokemon)
-
-
         })
     }
-
-
 })
 
 
