@@ -264,6 +264,31 @@ $("#submit").click(function () {
             $("#searchPokemon").append(newPokemon)
         })
     }
+    // when the button is pressed a gif appears
+    $("#gif").attr("src", "")
+    var gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q="
+
+    if(inputedValue === "pokemon?&limit=964"){
+        gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=pokemon"
+    } else {
+        var gifSearch = inputedValue.split("/")
+        gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=" + gifSearch[1] +"-pokemon"
+    }
+    
+    $.ajax({
+        url: gifURL,
+        method: "GET"
+    }).then(function(response){
+        for (i=0; i<1;i++){
+        var randomGIF = Math.floor(Math.random() * response.results.length)
+        var pokemonGIF = response.results[randomGIF].media[0].tinygif.url
+
+        $("#gif").attr("src", pokemonGIF)
+        }
+    })
+
+
+
 })
 
 $("#genSelect").change("data-option", function(){
