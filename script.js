@@ -296,9 +296,9 @@ $("#genSelect").change("data-option", function(){
             var pokemonGenURL = pokemonGen.results[i].url
             var newPokemonDiv = $("<div>")
             var res = pokemonGen.results[i].url.split("/");
+            newPokemonDiv.addClass("card")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
-            newPokemonDiv.text(pokemonGen.results[i].name)
             $("#searchPokemon").append(newPokemonDiv)
 
             $.ajax({
