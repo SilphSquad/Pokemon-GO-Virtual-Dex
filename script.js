@@ -21,10 +21,9 @@ $("#submit").click(function () {
             method: "GET"
         }).then(function (pokemonID) {//all
             for (i=0; i<pokemonID.results.length; i++){
-            // for (i=0; i<25; i++){
             var pokemonURL = pokemonID.results[i].url
             var orderDiv = $("<div>")
-            orderDiv.attr("value", (i+1))
+            orderDiv.attr("id", (i+1))
             $("#searchPokemon").append(orderDiv)
 
             $.ajax({
@@ -32,62 +31,166 @@ $("#submit").click(function () {
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
-                var newPokemonDiv = $("<div>")
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
+                pokeImage.attr("alt", "pokemon-sprite")
                 var pokeFigure = $("<figure>")
                 var pokemonDexNum = individualPokemon.id
-                var targetDiv = $(`[value=${pokemonDexNum}]`)
+                var targetDiv = $(`[id=${pokemonDexNum}]`)
                 pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                newPokemonDiv.addClass("card")
-                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
-                newPokemonDiv.text(individualPokemon.name)
-                newPokemonDiv.append(pokeImageDiv)
+                targetDiv.addClass("card")
+                targetDiv.attr("id", pokemonDexNum)
+                targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
-                targetDiv.append(newPokemonDiv)
+
+                var pokeContent = $("<div>")
+                var pokeMedia = $("<div>")
+                var pokeName = $("<p>")
+                var pokeNameURL = individualPokemon.name
+                var pokeMediaContent = $("<div>")
+                var pokeCardContent = $("<div>")
+                var generation = $("<p>")
+                var type = $("<p>")
+                var idNumber = $("<p>")
+                var type1URL = individualPokemon.types[0].type.name
+                var type2URL = individualPokemon.types[1]?" | " + individualPokemon.types[1].type.name: ""
+                var idURL = individualPokemon.id
+
+                targetDiv.addClass("card")
+                pokeContent.addClass("card-content")
+                pokeMedia.addClass("media")
+                pokeImageDiv.addClass("media-left")
+                pokeFigure.addClass("image is-128x128")
+                pokeMediaContent.addClass("media-content")
+                pokeName.addClass("title is-4")
+                pokeCardContent.addClass("subtitle is-6")
+
+                type.html("Type: " + type1URL + "  " + type2URL)
+                idNumber.html("Pok&eacute;dex Entry: " + idURL)
+
+                if (idURL >= 1 && idURL <= 151){
+                    generation.html("Generation: 1")
+                }else if (idURL >= 152 && idURL <= 251){
+                    generation.html("Generation: 2")
+                }else if (idURL >= 252 && idURL <= 386){
+                    generation.html("Generation: 3")
+                }else if (idURL >= 387 && idURL <= 494){
+                    generation.html("Generation: 4")
+                }else if (idURL >= 495 && idURL <= 649){
+                    generation.html("Generation: 5")
+                }else if (idURL >= 650 && idURL <= 721){
+                    generation.html("Generation: 6")
+                }else if (idURL >= 722 && idURL <= 808){
+                    generation.html("Generation: 7")
+                }
+
+                pokeFigure.append(pokeImage)
+                pokeImageDiv.append(pokeFigure)
+                pokeMedia.append(pokeImageDiv)
+                pokeName.append(pokeNameURL)
+                pokeMediaContent.append(pokeName)
+                pokeMedia.append(pokeMediaContent)
+                pokeCardContent.append(type)
+                pokeCardContent.append(idNumber)
+                pokeCardContent.append(generation)
+                pokeMediaContent.append(pokeCardContent)
+                pokeContent.prepend(pokeMedia)
+                targetDiv.append(pokeContent)
                 })
             }
         })
 
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
-
+      
+        // This ajax call retrieves all pokemon of a certain type
         $.ajax({
             url: pokeapiURL,
             method: "GET"
         }).then(function (typeID) {//type
             for (i=0; i<typeID.pokemon.length; i++){
-            // for (i=0; i<10; i++){
             var pokemonURL = typeID.pokemon[i].pokemon.url
-            // var orderDiv = $("<div>")
-            // orderDiv.attr("value", (i+1))
-            // $("#searchPokemon").append(orderDiv)
-
+            var newPokemonDiv = $("<div>")
+            var res = typeID.pokemon[i].pokemon.url.split("/");
+            newPokemonDiv.addClass("card")
+            newPokemonDiv.attr("id", res[6])
+            newPokemonDiv.attr("data","name")
+            $("#searchPokemon").append(newPokemonDiv)
+            
+            // This ajax call retrieves individual pokemon sprites of a certain type 
             $.ajax({
                 url: pokemonURL,
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
-                var newPokemonDiv = $("<div>")
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
+                pokeImage.attr("alt", "pokemon-sprite")
                 var pokeFigure = $("<figure>")
                 var pokemonDexNum = individualPokemon.id
-                // var targetDiv = $(`[value=${pokemonDexNum}]`)
+                var targetDiv = $(`[id=${pokemonDexNum}]`)
                 pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                newPokemonDiv.addClass("card")
-                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
-                newPokemonDiv.text(individualPokemon.name)
-                newPokemonDiv.append(pokeImageDiv)
+                targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
-                $("#searchPokemon").append(newPokemonDiv)
-                // targetDiv.append(newPokemonDiv)
+
+                var pokeContent = $("<div>")
+                var pokeMedia = $("<div>")
+                var pokeName = $("<p>")
+                var pokeNameURL = individualPokemon.name
+                var pokeMediaContent = $("<div>")
+                var pokeCardContent = $("<div>")
+                var generation = $("<p>")
+                var type = $("<p>")
+                var idNumber = $("<p>")
+                var type1URL = individualPokemon.types[0].type.name
+                var type2URL = individualPokemon.types[1]?" | " + individualPokemon.types[1].type.name: ""
+                var idURL = individualPokemon.id
+
+                pokeContent.addClass("card-content")
+                pokeMedia.addClass("media")
+                pokeImageDiv.addClass("media-left")
+                pokeFigure.addClass("image is-128x128")
+                pokeMediaContent.addClass("media-content")
+                pokeName.addClass("title is-4")
+                pokeCardContent.addClass("subtitle is-6")
+
+                type.html("Type: " + type1URL + "  " + type2URL)
+                idNumber.html("Pok&eacute;dex Entry: " + idURL)
+
+                if (idURL >= 1 && idURL <= 151){
+                    generation.html("Generation: 1")
+                }else if (idURL >= 152 && idURL <= 251){
+                    generation.html("Generation: 2")
+                }else if (idURL >= 252 && idURL <= 386){
+                    generation.html("Generation: 3")
+                }else if (idURL >= 387 && idURL <= 494){
+                    generation.html("Generation: 4")
+                }else if (idURL >= 495 && idURL <= 649){
+                    generation.html("Generation: 5")
+                }else if (idURL >= 650 && idURL <= 721){
+                    generation.html("Generation: 6")
+                }else if (idURL >= 722 && idURL <= 808){
+                    generation.html("Generation: 7")
+                }
+
+                pokeFigure.append(pokeImage)
+                pokeImageDiv.append(pokeFigure)
+                pokeMedia.append(pokeImageDiv)
+                pokeName.append(pokeNameURL)
+                pokeMediaContent.append(pokeName)
+                pokeMedia.append(pokeMediaContent)
+                pokeCardContent.append(type)
+                pokeCardContent.append(idNumber)
+                pokeCardContent.append(generation)
+                pokeMediaContent.append(pokeCardContent)
+                pokeContent.prepend(pokeMedia)
+                targetDiv.append(pokeContent)
                 })
-            }
-        })
+            } 
+        }) 
 
     } else {//individual
         $.ajax({
@@ -96,20 +199,69 @@ $("#submit").click(function () {
         }).then(function (pokemonID) {
             var newPokemon = $("<div>")
             var pokeImage = $("<div>")
+            var pokeContent = $("<div>")
+            var pokeMedia = $("<div>")
             var pokeFigure = $("<figure>")
             var imgURL = pokemonID.sprites.front_default
             var image = $("<img>").attr("src", imgURL)
+            var pokeName = $("<p>")
+            var pokeNameURL = pokemonID.name
+            var pokeMediaContent = $("<div>")
+            var pokeCardContent = $("<div>")
+            var generation = $("<p>")
+            var type = $("<p>")
+            var idNumber = $("<p>")
+            var type1URL = pokemonID.types[0].type.name
+            var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
+            var idURL = pokemonID.id
+
             newPokemon.addClass("card")
-            pokeImage.addClass("card-image")
+            pokeContent.addClass("card-content")
+            pokeMedia.addClass("media")
+            pokeImage.addClass("media-left")
             pokeFigure.addClass("image is-128x128")
-            newPokemon.text(pokemonID.name)
-            newPokemon.append(pokeImage)
-            pokeImage.append(pokeFigure)
+            pokeMediaContent.addClass("media-content")
+            pokeName.addClass("title is-4")
+            pokeCardContent.addClass("subtitle is-6")
+
+            type.html("Type: " + type1URL + "  " + type2URL)
+            idNumber.html("Pok&eacute;dex Entry: " + idURL)
+            
+
+            if (idURL >= 1 && idURL <= 151){
+                generation.html("Generation: 1")
+            }else if (idURL >= 152 && idURL <= 251){
+                generation.html("Generation: 2")
+            }else if (idURL >= 252 && idURL <= 386){
+                generation.html("Generation: 3")
+            }else if (idURL >= 387 && idURL <= 494){
+                generation.html("Generation: 4")
+            }else if (idURL >= 495 && idURL <= 649){
+                generation.html("Generation: 5")
+            }else if (idURL >= 650 && idURL <= 721){
+                generation.html("Generation: 6")
+            }else if (idURL >= 722 && idURL <= 808){
+                generation.html("Generation: 7")
+            }
+
             pokeFigure.append(image)
+            pokeImage.append(pokeFigure)
+            pokeMedia.append(pokeImage)
+            pokeName.append(pokeNameURL)
+            pokeMediaContent.append(pokeName)
+            pokeMedia.append(pokeMediaContent)
+            pokeCardContent.append(type)
+            pokeCardContent.append(idNumber)
+            pokeCardContent.append(generation)
+            pokeMediaContent.append(pokeCardContent)
+            pokeContent.prepend(pokeMedia)
+            newPokemon.append(pokeContent)
             $("#searchPokemon").append(newPokemon)
         })
     }
 })
+
+
 $("#genSelect").change("data-option", function(){
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
@@ -139,16 +291,88 @@ $("#genSelect").change("data-option", function(){
     $.ajax({
         url: pokeapiURL,
         method: "GET"
-    }).then(function(pokemonID){
-        for (i=0; i<pokemonID.results.length;i++){
-        var newPokemon = $("<p>")
+    }).then(function(pokemonGen){
+        for (i=0; i<pokemonGen.results.length;i++){
+            var pokemonGenURL = pokemonGen.results[i].url
+            var newPokemonDiv = $("<div>")
+            var res = pokemonGen.results[i].url.split("/");
+            newPokemonDiv.addClass("card")
+            newPokemonDiv.attr("id", res[6])
+            newPokemonDiv.attr("data","name")
+            $("#searchPokemon").append(newPokemonDiv)
+
+            $.ajax({
+                url: pokemonGenURL,
+                method: "GET"
+            }).then(function(individualPokemon){
+                var newPokemon = $("<p>")
         
-        var res = pokemonID.results[i].url.split("/");
-        newPokemon.attr("id", res[6])
-        newPokemon.attr("data","name")
-        pokemonArray.push(newPokemon)
-        newPokemon.text(pokemonID.results[i].name)
-        $("#searchPokemon").append(newPokemon)
+                var spriteURL = individualPokemon.sprites.front_default
+                var pokeImageDiv = $("<div>")
+                var pokeImage = $("<img>").attr("src", spriteURL)
+                pokeImage.attr("alt", "pokemon-sprite")
+                var pokeFigure = $("<figure>")
+                var pokemonDexNum = individualPokemon.id
+                var targetDiv = $(`[id=${pokemonDexNum}]`)
+                pokeImageDiv.addClass("card-image")
+                pokeFigure.addClass("image is-128x128")
+                targetDiv.append(pokeImageDiv)
+                pokeImageDiv.append(pokeFigure)
+                pokeFigure.append(pokeImage)
+        
+                var pokeContent = $("<div>")
+                var pokeMedia = $("<div>")
+                var pokeName = $("<p>")
+                var pokeNameURL = individualPokemon.name
+                var pokeMediaContent = $("<div>")
+                var pokeCardContent = $("<div>")
+                var generation = $("<p>")
+                var type = $("<p>")
+                var idNumber = $("<p>")
+                var type1URL = individualPokemon.types[0].type.name
+                var type2URL = individualPokemon.types[1]?" | " + individualPokemon.types[1].type.name: ""
+                var idURL = individualPokemon.id
+        
+                pokeContent.addClass("card-content")
+                pokeMedia.addClass("media")
+                pokeImageDiv.addClass("media-left")
+                pokeFigure.addClass("image is-128x128")
+                pokeMediaContent.addClass("media-content")
+                pokeName.addClass("title is-4")
+                pokeCardContent.addClass("subtitle is-6")
+        
+                type.html("Type: " + type1URL + "  " + type2URL)
+                idNumber.html("Pok&eacute;dex Entry: " + idURL)
+        
+                if (idURL >= 1 && idURL <= 151){
+                    generation.html("Generation: 1")
+                }else if (idURL >= 152 && idURL <= 251){
+                    generation.html("Generation: 2")
+                }else if (idURL >= 252 && idURL <= 386){
+                    generation.html("Generation: 3")
+                }else if (idURL >= 387 && idURL <= 494){
+                    generation.html("Generation: 4")
+                }else if (idURL >= 495 && idURL <= 649){
+                    generation.html("Generation: 5")
+                }else if (idURL >= 650 && idURL <= 721){
+                    generation.html("Generation: 6")
+                }else if (idURL >= 722 && idURL <= 808){
+                    generation.html("Generation: 7")
+                }
+        
+                pokeFigure.append(pokeImage)
+                pokeImageDiv.append(pokeFigure)
+                pokeMedia.append(pokeImageDiv)
+                pokeName.append(pokeNameURL)
+                pokeMediaContent.append(pokeName)
+                pokeMedia.append(pokeMediaContent)
+                pokeCardContent.append(type)
+                pokeCardContent.append(idNumber)
+                pokeCardContent.append(generation)
+                pokeMediaContent.append(pokeCardContent)
+                pokeContent.prepend(pokeMedia)
+                targetDiv.append(pokeContent)
+            })
         }
     })
 })
@@ -197,16 +421,87 @@ $("#typeSelect").change("data-type", function(){
     $.ajax({
         url: pokeapiURL,
         method: "GET"
-    }).then(function(pokemonID){
-        for (i=0; i<pokemonID.pokemon.length;i++){
-        var newPokemon = $("<p>")
+    }).then(function(typeID){
+        for (i=0; i<typeID.pokemon.length; i++){
+            var pokemonTypeURL = typeID.pokemon[i].pokemon.url
+            var newPokemonDiv = $("<div>")
+            var res = typeID.pokemon[i].pokemon.url.split("/");
+            newPokemonDiv.addClass("card")
+            newPokemonDiv.attr("id", res[6])
+            newPokemonDiv.attr("data","name")
+            $("#searchPokemon").append(newPokemonDiv)
+            $.ajax({
+                url: pokemonTypeURL,
+                method: "GET"
+            }).then(function(individualPokemon){
+                var newPokemon = $("<p>")
         
-        var res = pokemonID.pokemon[i].pokemon.url.split("/");
-        newPokemon.attr("id", res[6])
-        newPokemon.attr("data","name")
-        pokemonArray.push(newPokemon)
-        newPokemon.text(pokemonID.pokemon[i].pokemon.name)
-        $("#searchPokemon").append(newPokemon)
+                var spriteURL = individualPokemon.sprites.front_default
+                var pokeImageDiv = $("<div>")
+                var pokeImage = $("<img>").attr("src", spriteURL)
+                pokeImage.attr("alt", "pokemon-sprite")
+                var pokeFigure = $("<figure>")
+                var pokemonDexNum = individualPokemon.id
+                var targetDiv = $(`[id=${pokemonDexNum}]`)
+                pokeImageDiv.addClass("card-image")
+                pokeFigure.addClass("image is-128x128")
+                targetDiv.append(pokeImageDiv)
+                pokeImageDiv.append(pokeFigure)
+                pokeFigure.append(pokeImage)
+        
+                var pokeContent = $("<div>")
+                var pokeMedia = $("<div>")
+                var pokeName = $("<p>")
+                var pokeNameURL = individualPokemon.name
+                var pokeMediaContent = $("<div>")
+                var pokeCardContent = $("<div>")
+                var generation = $("<p>")
+                var type = $("<p>")
+                var idNumber = $("<p>")
+                var type1URL = individualPokemon.types[0].type.name
+                var type2URL = individualPokemon.types[1]?" | " + individualPokemon.types[1].type.name: ""
+                var idURL = individualPokemon.id
+        
+                pokeContent.addClass("card-content")
+                pokeMedia.addClass("media")
+                pokeImageDiv.addClass("media-left")
+                pokeFigure.addClass("image is-128x128")
+                pokeMediaContent.addClass("media-content")
+                pokeName.addClass("title is-4")
+                pokeCardContent.addClass("subtitle is-6")
+        
+                type.html("Type: " + type1URL + "  " + type2URL)
+                idNumber.html("Pok&eacute;dex Entry: " + idURL)
+        
+                if (idURL >= 1 && idURL <= 151){
+                    generation.html("Generation: 1")
+                }else if (idURL >= 152 && idURL <= 251){
+                    generation.html("Generation: 2")
+                }else if (idURL >= 252 && idURL <= 386){
+                    generation.html("Generation: 3")
+                }else if (idURL >= 387 && idURL <= 494){
+                    generation.html("Generation: 4")
+                }else if (idURL >= 495 && idURL <= 649){
+                    generation.html("Generation: 5")
+                }else if (idURL >= 650 && idURL <= 721){
+                    generation.html("Generation: 6")
+                }else if (idURL >= 722 && idURL <= 808){
+                    generation.html("Generation: 7")
+                }
+        
+                pokeFigure.append(pokeImage)
+                pokeImageDiv.append(pokeFigure)
+                pokeMedia.append(pokeImageDiv)
+                pokeName.append(pokeNameURL)
+                pokeMediaContent.append(pokeName)
+                pokeMedia.append(pokeMediaContent)
+                pokeCardContent.append(type)
+                pokeCardContent.append(idNumber)
+                pokeCardContent.append(generation)
+                pokeMediaContent.append(pokeCardContent)
+                pokeContent.prepend(pokeMedia)
+                targetDiv.append(pokeContent)
+            })
         }
     })
 })
