@@ -80,124 +80,41 @@ $("#genSelect").change("data-option", function(){
 
     if (this.value === "g1"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g2"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g3"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g4"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g5"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=494&limit=155"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g6"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }else if (this.value === "g7"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=721&limit=86"
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function(pokemonID){
-            for (i=0; i<pokemonID.results.length;i++){
-            var newPokemon = $("<p>")
-            
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-            newPokemon.attr("data","name")
-            pokemonArray.push(newPokemon)
-            newPokemon.text(pokemonID.results[i].name)
-            $("#searchPokemon").append(newPokemon)
-            }
-        })
+
     }
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+        for (i=0; i<pokemonID.results.length;i++){
+        var newPokemon = $("<p>")
+        
+        var res = pokemonID.results[i].url.split("/");
+        newPokemon.attr("id", res[6])
+        newPokemon.attr("data","name")
+        pokemonArray.push(newPokemon)
+        newPokemon.text(pokemonID.results[i].name)
+        $("#searchPokemon").append(newPokemon)
+        }
+    })
 })
 
 $("#typeSelect").change("data-type", function(){
