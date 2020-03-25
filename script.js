@@ -1,3 +1,5 @@
+var pokemonArray = []
+
 $("#submit").click(function () {
     $("#searchPokemon").empty();
     var inputedValue = $("#userInput").val()
@@ -108,24 +110,142 @@ $("#submit").click(function () {
         })
     }
 })
+$("#genSelect").change("data-option", function(){
+    $("#searchPokemon").empty();
+    var pokeapiURL = "https://pokeapi.co/api/v2/"
+
+    if (this.value === "g1"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
+
+    }else if (this.value === "g2"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
+
+    }else if (this.value === "g3"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
+
+    }else if (this.value === "g4"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
+
+    }else if (this.value === "g5"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=494&limit=155"
+
+    }else if (this.value === "g6"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
+
+    }else if (this.value === "g7"){
+        pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=721&limit=86"
+
+    }
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+        for (i=0; i<pokemonID.results.length;i++){
+        var newPokemon = $("<p>")
+        
+        var res = pokemonID.results[i].url.split("/");
+        newPokemon.attr("id", res[6])
+        newPokemon.attr("data","name")
+        pokemonArray.push(newPokemon)
+        newPokemon.text(pokemonID.results[i].name)
+        $("#searchPokemon").append(newPokemon)
+        }
+    })
+})
+
+$("#typeSelect").change("data-type", function(){
+    $("#searchPokemon").empty();
+    var pokeapiURL = "https://pokeapi.co/api/v2/"
+
+    if(this.value === "bug"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/bug"
+    }else if(this.value === "dark"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/dark"
+    }else if(this.value === "dragon"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/dragon"
+    }else if(this.value === "electric"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/electric"
+    }else if(this.value === "fairy"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/fairy"
+    }else if(this.value === "fighting"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/fighting"
+    }else if(this.value === "fire"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/fire"
+    }else if(this.value === "flying"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/flying"
+    }else if(this.value === "ghost"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/ghost"
+    }else if(this.value === "grass"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/grass"
+    }else if(this.value === "ground"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/ground"
+    }else if(this.value === "ice"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/ice"
+    }else if(this.value === "normal"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/normal"
+    }else if(this.value === "poison"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/poison"
+    }else if(this.value === "psychic"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/psychic"
+    }else if(this.value === "rock"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/rock"
+    }else if(this.value === "steel"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/steel"
+    }else if(this.value === "water"){
+        pokeapiURL = "https://pokeapi.co/api/v2/type/water"
+    }
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+        for (i=0; i<pokemonID.pokemon.length;i++){
+        var newPokemon = $("<p>")
+        
+        var res = pokemonID.pokemon[i].pokemon.url.split("/");
+        newPokemon.attr("id", res[6])
+        newPokemon.attr("data","name")
+        pokemonArray.push(newPokemon)
+        newPokemon.text(pokemonID.pokemon[i].pokemon.name)
+        $("#searchPokemon").append(newPokemon)
+        }
+    })
+})
 
 
-// $("#compareGO").click(function(){
-//     var settings = {
-//         "async": true,
-//         "crossDomain": true,
-//         "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
-//         "method": "GET",
-//         "headers": {
-//             "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
-//             "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
-//         }
-//     }
+$("#compareGO").click("data-name", function(){
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
+            "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
+        }
+    }
+    
+    $.ajax(settings).done(function (response) {
+        var goArray = []
+        $("#searchPokemon").empty()
+        for(var index in response){
+            goArray.push(response[index])
+        }
+        console.log(goArray)
+        console.log(pokemonArray)
 
-//     $.ajax(settings).done(function (response) {
-//         for (i=0; i< response.length; i++){
-//             if (response[i].id === )
-//         }
-//     });
+        for (i=0; i< goArray.length; i++){
+            var goID = goArray[i].id
+            var pokeID = parseInt($(pokemonArray[i]).attr("id"))
+            console.log(goArray[i].id)
+            console.log(parseInt($(pokemonArray[i]).attr("id")))
+            if(goID === pokeID){
 
-// })
+
+            } else {
+
+            }
+        }
+
+    });
+
+})
