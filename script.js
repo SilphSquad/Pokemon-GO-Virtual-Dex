@@ -1,9 +1,13 @@
+// global array variables 
 var pokemonArray = []
-
+var goArray = []
+// when the search button is pressed
 $("#submit").click(function () {
+    // empties the result box
     $("#searchPokemon").empty();
+    // makes a variable equal to what was typed
     var inputedValue = $("#userInput").val()
-    // console.log(inputedValue)
+    // depending on what they type the url will change
     if (inputedValue === "all") {
         inputedValue = "pokemon?&limit=964"
     } else if (inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" || inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" || inputedValue === "steel" || inputedValue === "water") {
@@ -11,10 +15,10 @@ $("#submit").click(function () {
     } else {
         inputedValue = "pokemon/" + inputedValue
     }
-    // console.log(inputedValue)
+    // the change to the url
     var pokeapiURL = "https://pokeapi.co/api/v2/" + inputedValue
-    // console.log(pokeapiURL)
-
+    
+    // this is if they chose to search all the pokemon
     if (inputedValue === "pokemon?&limit=964") {
         $.ajax({
             url: pokeapiURL,
@@ -25,6 +29,7 @@ $("#submit").click(function () {
             var pokemonURL = pokemonID.results[i].url
             var orderDiv = $("<div>")
             orderDiv.attr("value", (i+1))
+            orderDiv.attr("id", pokemonID.results[i].id)
             $("#searchPokemon").append(orderDiv)
 
             $.ajax({
@@ -46,11 +51,12 @@ $("#submit").click(function () {
                 newPokemonDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
+                pokemonArray.push(newPokemonDiv)
                 targetDiv.append(newPokemonDiv)
                 })
             }
         })
-
+    // this is if they chose a specific type
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
 
         $.ajax({
@@ -83,13 +89,14 @@ $("#submit").click(function () {
                 newPokemonDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
+                pokemonArray.push(newPokemonDiv)
                 $("#searchPokemon").append(newPokemonDiv)
                 // targetDiv.append(newPokemonDiv)
                 })
             }
         })
-
-    } else {//individual
+    // this is for a specific pokemon
+    } else {
         $.ajax({
             url: pokeapiURL,
             method: "GET"
@@ -99,6 +106,8 @@ $("#submit").click(function () {
             var pokeFigure = $("<figure>")
             var imgURL = pokemonID.sprites.front_default
             var image = $("<img>").attr("src", imgURL)
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
             newPokemon.addClass("card")
             pokeImage.addClass("card-image")
             pokeFigure.addClass("image is-128x128")
@@ -106,10 +115,13 @@ $("#submit").click(function () {
             newPokemon.append(pokeImage)
             pokeImage.append(pokeFigure)
             pokeFigure.append(image)
+            pokemonArray.push(newPokemon)
             $("#searchPokemon").append(newPokemon)
         })
     }
 })
+
+// this is for the generations drop down menu
 $("#genSelect").change("data-option", function(){
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
@@ -145,7 +157,7 @@ $("#genSelect").change("data-option", function(){
         }
     })
 })
-
+// this is for the type drop down menu
 $("#typeSelect").change("data-type", function(){
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
@@ -204,7 +216,7 @@ $("#typeSelect").change("data-type", function(){
     })
 })
 
-
+// the comparison go button
 $("#compareGO").click("data-name", function(){
     var settings = {
         "async": true,
@@ -218,21 +230,21 @@ $("#compareGO").click("data-name", function(){
     }
     
     $.ajax(settings).done(function (response) {
-        var goArray = []
+        
         $("#searchPokemon").empty()
         for(var index in response){
             goArray.push(response[index])
         }
         console.log(goArray)
-        console.log(pokemonArray)
+        // console.log(pokemonArray)
 
-        for (i=0; i< goArray.length; i++){
-            var goID = goArray[i].id
-            var pokeID = parseInt($(pokemonArray[i]).attr("id"))
-            console.log(goArray[i].id)
-            console.log(parseInt($(pokemonArray[i]).attr("id")))
+        // for (i=0; i< goArray.length; i++){
+        //     var goID = goArray[i].id
+        //     var pokeID = parseInt($(pokemonArray[i]).attr("id"))
+        //     console.log(goArray[i].id)
+        //     console.log(parseInt($(pokemonArray[i]).attr("id")))
 
-        }
+        // }
 
     });
 
