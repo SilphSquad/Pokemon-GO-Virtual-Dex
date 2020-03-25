@@ -27,12 +27,7 @@ $("#submit").click(function () {
             for (i=0; i<pokemonID.results.length; i++){
             var pokemonURL = pokemonID.results[i].url
             var orderDiv = $("<div>")
-<<<<<<< HEAD
-            orderDiv.attr("value", (i+1))
-            orderDiv.attr("id", pokemonID.results[i].id)
-=======
             orderDiv.attr("id", (i+1))
->>>>>>> development
             $("#searchPokemon").append(orderDiv)
 
             $.ajax({
@@ -53,10 +48,6 @@ $("#submit").click(function () {
                 targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
-<<<<<<< HEAD
-                pokemonArray.push(newPokemonDiv)
-                targetDiv.append(newPokemonDiv)
-=======
 
                 var pokeContent = $("<div>")
                 var pokeMedia = $("<div>")
@@ -111,7 +102,6 @@ $("#submit").click(function () {
                 pokeMediaContent.append(pokeCardContent)
                 pokeContent.prepend(pokeMedia)
                 targetDiv.append(pokeContent)
->>>>>>> development
                 })
             }
         })
@@ -149,16 +139,6 @@ $("#submit").click(function () {
                 targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
                 pokeFigure.append(pokeImage)
-<<<<<<< HEAD
-                pokemonArray.push(newPokemonDiv)
-                $("#searchPokemon").append(newPokemonDiv)
-                // targetDiv.append(newPokemonDiv)
-                })
-            }
-        })
-    // this is for a specific pokemon
-    } else {
-=======
 
                 var pokeContent = $("<div>")
                 var pokeMedia = $("<div>")
@@ -218,7 +198,6 @@ $("#submit").click(function () {
         }) 
 
     } else {//individual
->>>>>>> development
         $.ajax({
             url: pokeapiURL,
             method: "GET"
@@ -230,10 +209,6 @@ $("#submit").click(function () {
             var pokeFigure = $("<figure>")
             var imgURL = pokemonID.sprites.front_default
             var image = $("<img>").attr("src", imgURL)
-<<<<<<< HEAD
-            var res = pokemonID.results[i].url.split("/");
-            newPokemon.attr("id", res[6])
-=======
             var pokeName = $("<p>")
             var pokeNameURL = pokemonID.name
             var pokeMediaContent = $("<div>")
@@ -245,7 +220,6 @@ $("#submit").click(function () {
             var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
             var idURL = pokemonID.id
 
->>>>>>> development
             newPokemon.addClass("card")
             pokeContent.addClass("card-content")
             pokeMedia.addClass("media")
@@ -276,9 +250,6 @@ $("#submit").click(function () {
             }
 
             pokeFigure.append(image)
-<<<<<<< HEAD
-            pokemonArray.push(newPokemon)
-=======
             pokeImage.append(pokeFigure)
             pokeMedia.append(pokeImage)
             pokeName.append(pokeNameURL)
@@ -290,17 +261,11 @@ $("#submit").click(function () {
             pokeMediaContent.append(pokeCardContent)
             pokeContent.prepend(pokeMedia)
             newPokemon.append(pokeContent)
->>>>>>> development
             $("#searchPokemon").append(newPokemon)
         })
     }
 })
 
-<<<<<<< HEAD
-// this is for the generations drop down menu
-=======
-
->>>>>>> development
 $("#genSelect").change("data-option", function(){
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
