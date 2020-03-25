@@ -22,7 +22,7 @@ $("#submit").click(function () {
             // for (i=0; i<25; i++){
             var pokemonURL = pokemonID.results[i].url
             var orderDiv = $("<div>")
-            orderDiv.attr("value", (i+1))
+            orderDiv.attr("id", (i+1))
             $("#searchPokemon").append(orderDiv)
 
             $.ajax({
@@ -35,7 +35,7 @@ $("#submit").click(function () {
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 var pokeFigure = $("<figure>")
                 var pokemonDexNum = individualPokemon.id
-                var targetDiv = $(`[value=${pokemonDexNum}]`)
+                var targetDiv = $(`[id=${pokemonDexNum}]`)
                 pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
                 newPokemonDiv.addClass("card")
