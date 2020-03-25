@@ -34,6 +34,7 @@ $("#submit").click(function () {
                 pokeFigure.append(image)
                 $("#searchPokemon").append(newPokemon)
 
+
             }
         })
 
@@ -124,6 +125,8 @@ $("#submit").click(function () {
             pokeContent.prepend(pokeMedia)
             newPokemon.append(pokeContent)
             $("#searchPokemon").append(newPokemon)
+
+
         })
     }
 
