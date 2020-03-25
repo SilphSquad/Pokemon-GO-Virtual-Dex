@@ -79,7 +79,7 @@ $("#submit").click(function () {
             var type = $("<p>")
             var idNumber = $("<p>")
             var type1URL = pokemonID.types[0].type.name
-            var type2URL = pokemonID.types[1].type.name
+            var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
             var idURL = pokemonID.id
 
             newPokemon.addClass("card")
@@ -91,8 +91,9 @@ $("#submit").click(function () {
             pokeName.addClass("title is-4")
             pokeCardContent.addClass("subtitle is-6")
 
-            type.html("Type: " + type1URL + " " + type2URL)
+            type.html("Type: " + type1URL + "  " + type2URL)
             idNumber.html("Pok&eacute;dex Entry: " + idURL)
+            
 
             if (idURL >= 1 && idURL <= 151){
                 generation.html("Generation: 1")
@@ -110,7 +111,6 @@ $("#submit").click(function () {
                 generation.html("Generation: 7")
             }
 
-
             pokeFigure.append(image)
             pokeImage.append(pokeFigure)
             pokeMedia.append(pokeImage)
@@ -124,7 +124,6 @@ $("#submit").click(function () {
             pokeContent.prepend(pokeMedia)
             newPokemon.append(pokeContent)
             $("#searchPokemon").append(newPokemon)
-
         })
     }
 
