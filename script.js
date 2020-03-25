@@ -66,16 +66,63 @@ $("#submit").click(function () {
         }).then(function (pokemonID) {
             var newPokemon = $("<div>")
             var pokeImage = $("<div>")
+            var pokeContent = $("<div>")
+            var pokeMedia = $("<div>")
             var pokeFigure = $("<figure>")
             var imgURL = pokemonID.sprites.front_default
             var image = $("<img>").attr("src", imgURL)
+            var pokeName = $("<p>")
+            var pokeNameURL = pokemonID.name
+            var pokeMediaContent = $("<div>")
+            var pokeCardContent = $("<div>")
+            var generation = $("<p>")
+            var type = $("<p>")
+            var idNumber = $("<p>")
+            var type1URL = pokemonID.types[0].type.name
+            var type2URL = pokemonID.types[1].type.name
+            var idURL = pokemonID.id
+
             newPokemon.addClass("card")
-            pokeImage.addClass("card-image")
+            pokeContent.addClass("card-content")
+            pokeMedia.addClass("media")
+            pokeImage.addClass("media-left")
             pokeFigure.addClass("image is-128x128")
-            // newPokemon.text(pokemonID.name)
-            newPokemon.append(pokeImage)
-            pokeImage.append(pokeFigure)
+            pokeMediaContent.addClass("media-content")
+            pokeName.addClass("title is-4")
+            pokeCardContent.addClass("subtitle is-6")
+
+            type.html("Type: " + type1URL + " " + type2URL)
+            idNumber.html("Pok&eacute;dex Entry: " + idURL)
+
+            if (idURL >= 1 && idURL <= 151){
+                generation.html("Generation: 1")
+            }else if (idURL >= 152 && idURL <= 251){
+                generation.html("Generation: 2")
+            }else if (idURL >= 252 && idURL <= 386){
+                generation.html("Generation: 3")
+            }else if (idURL >= 387 && idURL <= 494){
+                generation.html("Generation: 4")
+            }else if (idURL >= 495 && idURL <= 649){
+                generation.html("Generation: 5")
+            }else if (idURL >= 650 && idURL <= 721){
+                generation.html("Generation: 6")
+            }else if (idURL >= 722 && idURL <= 808){
+                generation.html("Generation: 7")
+            }
+
+
             pokeFigure.append(image)
+            pokeImage.append(pokeFigure)
+            pokeMedia.append(pokeImage)
+            pokeName.append(pokeNameURL)
+            pokeMediaContent.append(pokeName)
+            pokeMedia.append(pokeMediaContent)
+            pokeCardContent.append(type)
+            pokeCardContent.append(idNumber)
+            pokeCardContent.append(generation)
+            pokeMediaContent.append(pokeCardContent)
+            pokeContent.prepend(pokeMedia)
+            newPokemon.append(pokeContent)
             $("#searchPokemon").append(newPokemon)
 
         })
