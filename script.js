@@ -331,7 +331,7 @@ $("#compareGO").click("data-name", function(){
 
                     // debugger;
 
-                    console.log(goArray);
+                    console.log(goArray);                               
                     goArray.splice(0, 1);
                     console.log(goArray);
 
