@@ -212,7 +212,7 @@ $("#submit").click(function () {
             if (spriteURL == null) {
                 spriteURL = "images/NoImageAvailable.png"
             }
-            var image = $("<img>").attr("src", imgURL)
+            var image = $("<img>").attr("src", spriteURL)
             var pokeName = $("<p>")
             var pokeNameURL = pokemonID.name
             var pokeMediaContent = $("<div>")
@@ -224,7 +224,7 @@ $("#submit").click(function () {
             var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
             var idURL = pokemonID.id
 
-            newPokemon.addClass("card column is-one-third")
+            newPokemon.addClass("card")
             pokeContent.addClass("card-content")
             pokeMedia.addClass("media")
             pokeImage.addClass("media-left")
