@@ -1,24 +1,24 @@
 .has-background-danger {
-    background-color: #cc0000!important;
+    background-color: #cc0000 !important;
 }
 
 .has-text-warning {
-    color: #ffde00!important;
+    color: #ffde00 !important;
 }
 
 .in-pokemon-go {
-    background-color: #008000!important;
-    color: #fff!important;
+    background-color: #008000 !important;
+    color: #fff !important;
 }
 
 .not-in-pokemon-go {
-    background-color: #cc0000!important;
-    color: #fff!important;
+    background-color: #cc0000 !important;
+    color: #fff !important;
 }
 
 .has-border {
-    border-top-style: solid!important;
-    border-top-color: #3B4CCA!important;
+    border-top-style: solid !important;
+    border-top-color: #3B4CCA !important;
 }
 
 .button {
@@ -27,8 +27,11 @@
     color: #ffde00;
 }
 
+.pokeName {
+    text-transform: capitalize;
+}
+
 #name {
-    /* font-size: larger; */
     -webkit-text-stroke-width: 0.75px;
     -webkit-text-stroke-color: #3B4CCA;
 }
@@ -37,20 +40,24 @@
     border: 2px solid #3B4CCA;
 }
 
-#genSelect, #typeSelect {
+#genSelect,
+#typeSelect {
     border: 2px solid #3B4CCA;
 }
 
-#userInput, #submit, #compareGO {
-    margin-right: 2px!important; 
-    margin-left: 2px!important;
+#userInput,
+#submit,
+#compareGO {
+    margin-right: 2px !important;
+    margin-left: 2px !important;
 }
 
 #searchPokemon {
     visibility: hidden;
 }
 
-h2, h3 {
-    margin-right: 5px!important; 
-    margin-left: 5px!important;
+h2,
+h3 {
+    margin-right: 5px !important;
+    margin-left: 5px !important;
 }
