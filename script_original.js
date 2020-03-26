@@ -1,5 +1,4 @@
 var pokemonArray = []
-var pokeGO = false;                                 //init boolean variable for pokemon obj and set it false
 
 $("#submit").click(function () {
     $("#searchPokemon").empty();
@@ -274,83 +273,24 @@ $("#compareGO").click("data-name", function(){
     
     $.ajax(settings).done(function (response) {
         var goArray = []
-        // temporarily disabling the clear
-        // $("#searchPokemon").empty()
+        $("#searchPokemon").empty()
         for(var index in response){
             goArray.push(response[index])
         }
         console.log(goArray)
         console.log(pokemonArray)
 
-        for (let j = 0; j < pokemonArray.length; j++) {
-            // console.log(j);
-
-            var pokeID = parseInt($(pokemonArray[j]).attr("id"));
-            var pokeName = ((pokemonArray[j]["0"].innerText));      // setting variable to pokeArray name
-            var goID = parseInt($(goArray[j]).attr("id"));
-            // var goID = goArray[j].id
-            var goName = goArray[j].name;
-            
-            var matchCount = -1;
-
-            // console.log("pokeArrayID " + pokeID);
-            // console.log("pokeArrayName " + pokeName);
-            // console.log("goArrayID " + goID);
-            // console.log("goArrayName " + goName);
-
-            for (let k = 0; k < goArray.length; k++) {
-                // console.log(k);
-                // var goArr2 = goArray;
-
-                
-
-                var goID = parseInt($(goArray[k]).attr("id"));
-
-                if (pokeID === goID){
-                // if (pokeID === parseInt($(goArray[k]).attr("id"))){
+        for (i=0; i< goArray.length; i++){
+            var goID = goArray[i].id
+            var pokeID = parseInt($(pokemonArray[i]).attr("id"))
+            console.log(goArray[i].id)
+            console.log(parseInt($(pokemonArray[i]).attr("id")))
+            if(goID === pokeID){
 
 
-                    // debugger;
+            } else {
 
-                    console.log("MATCH");
-                    console.log("pokeArrayID " + pokeID);
-                    console.log("pokeArrayName " + pokeName);
-                    console.log("goArrayID " + goID);
-                    // console.log("goArrayName " + goName);
-                    console.log("goArrayName " + goArray[k].name)
-
-                    // debugger;
-
-                    console.log(goArray);
-                    goArray.splice(0, 1);
-                    console.log(goArray);
-
-                    // debugger;
-                    
-
-
-
-                    break;
-                }else{
-                    console.log("negative");
-                }
-
-                
-                
             }
-
-            // if (pokeID === goID) {
-            // if (pokeID === )    
-            //     console.log("MATCH");
-
-            // } else {
-            //     console.log("negative");
-            // }
-
-            
-
-            // debugger;
-            
         }
 
     });

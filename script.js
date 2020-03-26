@@ -1,161 +1,80 @@
 var pokemonArray = []
+// added a bool variable to determine if character is in PokemonGo universe, set to false
+var pokeGo = false;
 
-$("#submit").click(function () {
-    $("#searchPokemon").empty();
-    var inputedValue = $("#userInput").val()
-    // console.log(inputedValue)
-    if (inputedValue === "all") {
-        inputedValue = "pokemon?&limit=964"
-    } else if (inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" || inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" || inputedValue === "steel" || inputedValue === "water") {
-        inputedValue = "type/" + inputedValue
-    } else {
-        inputedValue = "pokemon/" + inputedValue
-    }
-    // console.log(inputedValue)
-    var pokeapiURL = "https://pokeapi.co/api/v2/" + inputedValue
-    // console.log(pokeapiURL)
 
-    if (inputedValue === "pokemon?&limit=964") {
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function (pokemonID) {//all
-            for (i=0; i<pokemonID.results.length; i++){
-            // for (i=0; i<25; i++){
-            var pokemonURL = pokemonID.results[i].url
-            var orderDiv = $("<div>")
-            orderDiv.attr("value", (i+1))
-            $("#searchPokemon").append(orderDiv)
+$("#submit").click(function(){
+$("#searchPokemon").empty();
+var inputedValue = $("#userInput").val()
+console.log(inputedValue)
+if (inputedValue === "all"){
+    inputedValue = "pokemon?&limit=964"
+}
+else if(inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" ||inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" ||inputedValue === "steel" ||inputedValue === "water"){
+    inputedValue = "type/" + inputedValue
+} 
+else{
+    inputedValue = "pokemon/" + inputedValue
+}
+console.log(inputedValue)
+var pokeapiURL = "https://pokeapi.co/api/v2/" + inputedValue
+console.log(pokeapiURL)
 
-            $.ajax({
-                url: pokemonURL,
-                method: "GET"
-            }).then(function(individualPokemon){
-                var spriteURL = individualPokemon.sprites.front_default
-                var newPokemonDiv = $("<div>")
-                var pokeImageDiv = $("<div>")
-                var pokeImage = $("<img>").attr("src", spriteURL)
-                var pokeFigure = $("<figure>")
-                var pokemonDexNum = individualPokemon.id
-                var targetDiv = $(`[value=${pokemonDexNum}]`)
-                pokeImageDiv.addClass("card-image")
-                pokeFigure.addClass("image is-128x128")
-                newPokemonDiv.addClass("card")
-                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
-                newPokemonDiv.text(individualPokemon.name)
-                newPokemonDiv.append(pokeImageDiv)
-                pokeImageDiv.append(pokeFigure)
-                pokeFigure.append(pokeImage)
-                targetDiv.append(newPokemonDiv)
-                })
-            }
-        })
+if(inputedValue === "pokemon?&limit=964"){
 
-    } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
-
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function (typeID) {//type
-            for (i=0; i<typeID.pokemon.length; i++){
-            // for (i=0; i<10; i++){
-            var pokemonURL = typeID.pokemon[i].pokemon.url
-            // var orderDiv = $("<div>")
-            // orderDiv.attr("value", (i+1))
-            // $("#searchPokemon").append(orderDiv)
-
-            $.ajax({
-                url: pokemonURL,
-                method: "GET"
-            }).then(function(individualPokemon){
-                var spriteURL = individualPokemon.sprites.front_default
-                var newPokemonDiv = $("<div>")
-                var pokeImageDiv = $("<div>")
-                var pokeImage = $("<img>").attr("src", spriteURL)
-                var pokeFigure = $("<figure>")
-                var pokemonDexNum = individualPokemon.id
-                // var targetDiv = $(`[value=${pokemonDexNum}]`)
-                pokeImageDiv.addClass("card-image")
-                pokeFigure.addClass("image is-128x128")
-                newPokemonDiv.addClass("card")
-                newPokemonDiv.attr("data-dex-num", pokemonDexNum)
-                newPokemonDiv.text(individualPokemon.name)
-                newPokemonDiv.append(pokeImageDiv)
-                pokeImageDiv.append(pokeFigure)
-                pokeFigure.append(pokeImage)
-                $("#searchPokemon").append(newPokemonDiv)
-                // targetDiv.append(newPokemonDiv)
-                })
-            }
-        })
-
-    } else {//individual
-        $.ajax({
-            url: pokeapiURL,
-            method: "GET"
-        }).then(function (pokemonID) {
-            var newPokemon = $("<div>")
-            var pokeImage = $("<div>")
-            var pokeContent = $("<div>")
-            var pokeMedia = $("<div>")
-            var pokeFigure = $("<figure>")
-            var imgURL = pokemonID.sprites.front_default
-            var image = $("<img>").attr("src", imgURL)
-            var pokeName = $("<p>")
-            var pokeNameURL = pokemonID.name
-            var pokeMediaContent = $("<div>")
-            var pokeCardContent = $("<div>")
-            var generation = $("<p>")
-            var type = $("<p>")
-            var idNumber = $("<p>")
-            var type1URL = pokemonID.types[0].type.name
-            var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
-            var idURL = pokemonID.id
-
-            newPokemon.addClass("card")
-            pokeContent.addClass("card-content")
-            pokeMedia.addClass("media")
-            pokeImage.addClass("media-left")
-            pokeFigure.addClass("image is-128x128")
-            pokeMediaContent.addClass("media-content")
-            pokeName.addClass("title is-4")
-            pokeCardContent.addClass("subtitle is-6")
-
-            type.html("Type: " + type1URL + "  " + type2URL)
-            idNumber.html("Pok&eacute;dex Entry: " + idURL)
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+        for (i = 0; i < pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
             
-
-            if (idURL >= 1 && idURL <= 151){
-                generation.html("Generation: 1")
-            }else if (idURL >= 152 && idURL <= 251){
-                generation.html("Generation: 2")
-            }else if (idURL >= 252 && idURL <= 386){
-                generation.html("Generation: 3")
-            }else if (idURL >= 387 && idURL <= 494){
-                generation.html("Generation: 4")
-            }else if (idURL >= 495 && idURL <= 649){
-                generation.html("Generation: 5")
-            }else if (idURL >= 650 && idURL <= 721){
-                generation.html("Generation: 6")
-            }else if (idURL >= 722 && idURL <= 808){
-                generation.html("Generation: 7")
-            }
-
-            pokeFigure.append(image)
-            pokeImage.append(pokeFigure)
-            pokeMedia.append(pokeImage)
-            pokeName.append(pokeNameURL)
-            pokeMediaContent.append(pokeName)
-            pokeMedia.append(pokeMediaContent)
-            pokeCardContent.append(type)
-            pokeCardContent.append(idNumber)
-            pokeCardContent.append(generation)
-            pokeMediaContent.append(pokeCardContent)
-            pokeContent.prepend(pokeMedia)
-            newPokemon.append(pokeContent)
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            newPokemon.text(pokemonID.results[i].name)
+            pokemonArray.push(newPokemon)
             $("#searchPokemon").append(newPokemon)
-        })
-    }
+            
+        }
+    })
+
+}else if(inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" ||inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" ||inputedValue === "type/steel" ||inputedValue === "type/water"){
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+        for (i=0; i<pokemonID.pokemon.length;i++){
+        var newPokemon = $("<p>")
+        
+        var res = pokemonID.pokemon[i].url.split("/");
+        newPokemon.attr("id", res[6])
+        newPokemon.attr("data","name")
+        pokemonArray.push(newPokemon)
+        newPokemon.text(pokemonID.pokemon[i].pokemon.name)
+        $("#searchPokemon").append(newPokemon)
+        }
+    })
+} 
+
+else {
+    $.ajax({
+        url: pokeapiURL,
+        method: "GET"
+    }).then(function(pokemonID){
+
+        var newPokemon = $("<p>")
+        
+        newPokemon.attr("id", pokemonID.id)
+        newPokemon.attr("data","name")
+        newPokemon.text(pokemonID.name)
+        pokemonArray.push(newPokemon)
+        $("#searchPokemon").append(newPokemon)
+
+    })
+}
+
+
 })
 $("#genSelect").change("data-option", function(){
     $("#searchPokemon").empty();
@@ -163,41 +82,124 @@ $("#genSelect").change("data-option", function(){
 
     if (this.value === "g1"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g2"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g3"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g4"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g5"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=494&limit=155"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g6"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }else if (this.value === "g7"){
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=721&limit=86"
-
+        $.ajax({
+            url: pokeapiURL,
+            method: "GET"
+        }).then(function(pokemonID){
+            for (i=0; i<pokemonID.results.length;i++){
+            var newPokemon = $("<p>")
+            
+            var res = pokemonID.results[i].url.split("/");
+            newPokemon.attr("id", res[6])
+            newPokemon.attr("data","name")
+            pokemonArray.push(newPokemon)
+            newPokemon.text(pokemonID.results[i].name)
+            $("#searchPokemon").append(newPokemon)
+            }
+        })
     }
-    $.ajax({
-        url: pokeapiURL,
-        method: "GET"
-    }).then(function(pokemonID){
-        for (i=0; i<pokemonID.results.length;i++){
-        var newPokemon = $("<p>")
-        
-        var res = pokemonID.results[i].url.split("/");
-        newPokemon.attr("id", res[6])
-        newPokemon.attr("data","name")
-        pokemonArray.push(newPokemon)
-        newPokemon.text(pokemonID.results[i].name)
-        $("#searchPokemon").append(newPokemon)
-        }
-    })
 })
 
 $("#typeSelect").change("data-type", function(){
@@ -271,28 +273,101 @@ $("#compareGO").click("data-name", function(){
         }
     }
     
+    
+
     $.ajax(settings).done(function (response) {
         var goArray = []
-        $("#searchPokemon").empty()
+        // temporarily disabling the clear
+        // $("#searchPokemon").empty()
         for(var index in response){
             goArray.push(response[index])
         }
         console.log(goArray)
         console.log(pokemonArray)
 
-        for (i=0; i< goArray.length; i++){
-            var goID = goArray[i].id
-            var pokeID = parseInt($(pokemonArray[i]).attr("id"))
-            console.log(goArray[i].id)
-            console.log(parseInt($(pokemonArray[i]).attr("id")))
-            if(goID === pokeID){
+        
+
+        // OVERALL: check pokeArray against goArray
+        // ! DONE TODO set loop based on size of pokemonArray
+        // ! DONE TODO check pokeID against goID and set flag if true
+        // ! DONE TODO see what happens at id352
+
+        for (let j = 0; j < pokemonArray.length; j++) {
+            // console.log(j);
+
+            var pokeID = parseInt($(pokemonArray[j]).attr("id"));
+            var pokeName = ((pokemonArray[j]["0"].innerText));      // setting variable to pokeArray name
+            var goID = parseInt($(goArray[j]).attr("id"));
+            // var goID = goArray[j].id
+            var goName = goArray[j].name;
+            
+            var matchCount = -1;
+
+            // console.log("pokeArrayID " + pokeID);
+            // console.log("pokeArrayName " + pokeName);
+            // console.log("goArrayID " + goID);
+            // console.log("goArrayName " + goName);
+
+            for (let k = 0; k < goArray.length; k++) {
+                // console.log(k);
+                // var goArr2 = goArray;
+
+                
+
+                var goID = parseInt($(goArray[k]).attr("id"));
+
+                if (pokeID === goID){
+                // if (pokeID === parseInt($(goArray[k]).attr("id"))){
 
 
-            } else {
+                    // debugger;
 
+                    console.log("MATCH");
+                    console.log("pokeArrayID " + pokeID);
+                    console.log("pokeArrayName " + pokeName);
+                    console.log("goArrayID " + goID);
+                    // console.log("goArrayName " + goName);
+                    console.log("goArrayName " + goArray[k].name)
+
+                    // debugger;
+
+                    console.log(goArray);
+                    goArray.splice(0, 1);
+                    console.log(goArray);
+
+                    // debugger;
+                    
+
+
+
+                    break;
+                }else{
+                    console.log("negative");
+                }
+
+                
+                
             }
+
+            // if (pokeID === goID) {
+            // if (pokeID === )    
+            //     console.log("MATCH");
+
+            // } else {
+            //     console.log("negative");
+            // }
+
+            
+
+            // debugger;
+            
         }
 
+
+
     });
+
+
+
 
 })
