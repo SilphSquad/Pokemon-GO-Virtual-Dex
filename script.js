@@ -31,6 +31,9 @@ $("#submit").click(function () {
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
+                if (spriteURL == null) {
+                    spriteURL = "images/NoImageAvailable.png"
+                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -39,7 +42,7 @@ $("#submit").click(function () {
                 var targetDiv = $(`[id=${pokemonDexNum}]`)
                 pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                targetDiv.addClass("card")
+                targetDiv.addClass("card column is-one-third")
                 targetDiv.attr("id", pokemonDexNum)
                 targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
@@ -113,7 +116,7 @@ $("#submit").click(function () {
             var pokemonURL = typeID.pokemon[i].pokemon.url
             var newPokemonDiv = $("<div>")
             var res = typeID.pokemon[i].pokemon.url.split("/");
-            newPokemonDiv.addClass("card")
+            newPokemonDiv.addClass("card column is-one-third")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -124,6 +127,9 @@ $("#submit").click(function () {
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
+                if (spriteURL == null) {
+                    spriteURL = "images/NoImageAvailable.png"
+                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -202,7 +208,10 @@ $("#submit").click(function () {
             var pokeContent = $("<div>")
             var pokeMedia = $("<div>")
             var pokeFigure = $("<figure>")
-            var imgURL = pokemonID.sprites.front_default
+            var spriteURL = pokemonID.sprites.front_default
+            if (spriteURL == null) {
+                spriteURL = "images/NoImageAvailable.png"
+            }
             var image = $("<img>").attr("src", imgURL)
             var pokeName = $("<p>")
             var pokeNameURL = pokemonID.name
@@ -215,7 +224,7 @@ $("#submit").click(function () {
             var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
             var idURL = pokemonID.id
 
-            newPokemon.addClass("card")
+            newPokemon.addClass("card column is-one-third")
             pokeContent.addClass("card-content")
             pokeMedia.addClass("media")
             pokeImage.addClass("media-left")
@@ -296,7 +305,7 @@ $("#genSelect").change("data-option", function(){
             var pokemonGenURL = pokemonGen.results[i].url
             var newPokemonDiv = $("<div>")
             var res = pokemonGen.results[i].url.split("/");
-            newPokemonDiv.addClass("card")
+            newPokemonDiv.addClass("card column is-one-third")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -308,6 +317,9 @@ $("#genSelect").change("data-option", function(){
                 var newPokemon = $("<p>")
         
                 var spriteURL = individualPokemon.sprites.front_default
+                if (spriteURL == null) {
+                    spriteURL = "images/NoImageAvailable.png"
+                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -426,7 +438,7 @@ $("#typeSelect").change("data-type", function(){
             var pokemonTypeURL = typeID.pokemon[i].pokemon.url
             var newPokemonDiv = $("<div>")
             var res = typeID.pokemon[i].pokemon.url.split("/");
-            newPokemonDiv.addClass("card")
+            newPokemonDiv.addClass("card column is-one-third")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -434,9 +446,12 @@ $("#typeSelect").change("data-type", function(){
                 url: pokemonTypeURL,
                 method: "GET"
             }).then(function(individualPokemon){
-                var newPokemon = $("<p>")
+                var newPokemon = $("<p>") 
         
                 var spriteURL = individualPokemon.sprites.front_default
+                if (spriteURL == null) {
+                    spriteURL = "images/NoImageAvailable.png"
+                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
