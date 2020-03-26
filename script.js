@@ -525,6 +525,22 @@ $("#typeSelect").change("data-type", function(){
             })
         }
     })
+
+    $("#gif").attr("src", "")
+    var gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=" + this.value + "-pokemon"
+    $.ajax({
+        url: gifURL,
+        method: "GET"
+    }).then(function(response){
+        for (i=0; i<1;i++){
+        var randomGIF = Math.floor(Math.random() * response.results.length)
+        var pokemonGIF = response.results[randomGIF].media[0].tinygif.url
+
+        $("#gif").attr("src", pokemonGIF)
+        }
+    })
+
+
 })
 
 // the comparison go button
