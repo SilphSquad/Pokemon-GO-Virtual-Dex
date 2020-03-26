@@ -28,9 +28,6 @@ function multiplePokemonType(multiplePokeObject){
         newPokemonDiv.addClass("card column is-one-third")
         newPokemonDiv.attr("id", res[6])
         newPokemonDiv.attr("data","name")
-        // var orderDiv = $("<div>")
-        // orderDiv.attr("id", (i+1))
-        // orderDiv.addClass("card column is-one-third")
         $("#searchPokemon").append(newPokemonDiv)
 
     $.ajax({
@@ -116,7 +113,6 @@ function cardCreation(individualPokeObject){
 $("#submit").click(function () {
     $("#searchPokemon").empty();
     var inputedValue = $("#userInput").val()
-    // console.log(inputedValue)
     if (inputedValue === "all") {
         inputedValue = "pokemon?&limit=964"
     } else if (inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" || inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" || inputedValue === "steel" || inputedValue === "water") {
@@ -124,17 +120,14 @@ $("#submit").click(function () {
     } else {
         inputedValue = "pokemon/" + inputedValue
     }
-    // console.log(inputedValue)
     var pokeapiURL = "https://pokeapi.co/api/v2/" + inputedValue
-    // console.log(pokeapiURL)
 
     if (inputedValue === "pokemon?&limit=964") {
         $.ajax({
             url: pokeapiURL,
             method: "GET"
-        // }).then(function(pokemonID))
         }).then(function (pokemonID) {//all
-            multiplePokemonType(pokemonID)
+            multiplePokemon(pokemonID)
         })
 
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
@@ -278,7 +271,5 @@ $("#compareGO").click("data-name", function(){
 
             }
         }
-
     });
-
 })
