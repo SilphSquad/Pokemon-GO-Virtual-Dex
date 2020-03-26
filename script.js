@@ -8,6 +8,7 @@ function multiplePokemon(multiplePokeObject){
         var res = multiplePokeObject.results[i].url.split("/");
         orderDiv.attr("id", res[6])
         orderDiv.addClass("card column is-one-third")
+        orderDiv.attr("data","name")
         $("#searchPokemon").append(orderDiv)
 
     $.ajax({
@@ -23,12 +24,12 @@ function multiplePokemonType(multiplePokeObject){
     for (i=0; i<multiplePokeObject.pokemon.length; i++){
     // for (i=0; i<15; i++){
         var pokemonURL = multiplePokeObject.pokemon[i].pokemon.url
-        var newPokemonDiv = $("<div>")
+        var orderDiv = $("<div>")
         var res = multiplePokeObject.pokemon[i].pokemon.url.split("/");
-        newPokemonDiv.addClass("card column is-one-third")
-        newPokemonDiv.attr("id", res[6])
-        newPokemonDiv.attr("data","name")
-        $("#searchPokemon").append(newPokemonDiv)
+        orderDiv.addClass("card column is-one-third")
+        orderDiv.attr("id", res[6])
+        orderDiv.attr("data","name")
+        $("#searchPokemon").append(orderDiv)
 
     $.ajax({
         url: pokemonURL,
