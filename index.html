@@ -19,20 +19,20 @@
 
     <nav class="navbar has-background-danger" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <div class="navbar-item has-text-warning is-size-3">Pok&eacute;GoDex</div>
+            <div id="name" class="navbar-item has-text-warning is-size-3">Pok&eacute;GoDex</div>
         </div>
 
         <div class="navbar-end">
         </div>
     </nav>
 
-    <section class="section">
+    <section class="section has-border">
         <div class="container">
             <h1 class="title">
                 Please enter your Pok&eacute;mon below!
             </h1>
             <p class="subtitle">
-                Or use the dropdown for a quick search for generation or type!
+                You can use the Pok&eacute;mon Go button to search if the Pok&eacute;mon selected is in Pok&eacute;mon Go!
             </p>
         </div>
     </section>
@@ -41,79 +41,79 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-4"></div>
-
+                
                 <input id="userInput" class="input is-rounded is-three-fifths is-offset-one-fifth" type="text"
-                    placeholder="Pokemon name, type, or all">
+                placeholder="Pokemon name, type, or all">
                 <button id="submit" class="button is-rounded column is-narrow">Search</button>
                 <button id="compareGO" class="button is-rounded column is-narrow">Pok&eacute;mon Go</button>
-
+                
                 <div class="column is-4"></div>
             </div>
+            <br>
+            <div class="container">
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                    <h2 class="title">Quick Search:</h2>
+                    <div class="field">
+                        <div class="control">
+                              <div class="select is-danger">
+                                <select id="genSelect">
+                                    <option disabled selected hidden>Choose a generation</option>
+                                    <option value="g1" data="option">Generation One</option>
+                                    <option value="g2" data="option">Generation Two</option>
+                                    <option value="g3" data="option">Generation Three</option>
+                                    <option value="g4" data="option">Generation Four</option>
+                                    <option value="g5" data="option">Generation Five</option>
+                                    <option value="g6" data="option">Generation Six</option>
+                                    <option value="g7" data="option">Generation Seven</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <h3 class="title">or</h3>
+                          <div class="field">
+                            <div class="control">
+                              <div class="select is-danger">
+                                <select id="typeSelect">
+                                  <option disabled selected hidden>Choose a type</option>
+                                  <option value="bug" data="type">Bug</option>
+                                  <option value="dark" data="type">Dark</option>
+                                  <option value="dragon" data="type">Dragon</option>
+                                  <option value="electric" data="type">Electric</option>
+                                  <option value="fairy" data="type">Fairy</option>
+                                  <option value="fighting" data="type">Fighting</option>
+                                  <option value="fire" data="type">Fire</option>
+                                  <option value="flying" data="type">Flying</option>
+                                  <option value="ghost" data="type">Ghost</option>
+                                  <option value="grass" data="type">Grass</option>
+                                  <option value="ground" data="type">Ground</option>
+                                  <option value="ice" data="type">Ice</option>
+                                  <option value="normal" data="type">Normal</option>
+                                  <option value="poison" data="type">Poison</option>
+                                  <option value="psychic" data="type">Psychic</option>
+                                  <option value="rock" data="type">Rock</option>
+                                  <option value="steel" data="type">Steel</option>
+                                  <option value="water" data="type">Water</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="column"></div>
+                        <div class="column"></div>
+                    </div>
+                </div>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
-            <div class="columns">
-                <div class="column"></div>
-                <div class="column"></div>
-                <div class="field">
-                    <div class="control">
-                      <div class="select is-warning">
-                        <select id="genSelect">
-                            <option disabled selected hidden>Choose a generation</option>
-                            <option value="g1" data="option">Generation One</option>
-                            <option value="g2" data="option">Generation Two</option>
-                            <option value="g3" data="option">Generation Three</option>
-                            <option value="g4" data="option">Generation Four</option>
-                            <option value="g5" data="option">Generation Five</option>
-                            <option value="g6" data="option">Generation Six</option>
-                            <option value="g7" data="option">Generation Seven</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <div class="control">
-                      <div class="select is-danger">
-                        <select id="typeSelect">
-                          <option disabled selected hidden>Choose a type</option>
-                          <option value="bug" data="type">Bug</option>
-                          <option value="dark" data="type">Dark</option>
-                          <option value="dragon" data="type">Dragon</option>
-                          <option value="electric" data="type">Electric</option>
-                          <option value="fairy" data="type">Fairy</option>
-                          <option value="fighting" data="type">Fighting</option>
-                          <option value="fire" data="type">Fire</option>
-                          <option value="flying" data="type">Flying</option>
-                          <option value="ghost" data="type">Ghost</option>
-                          <option value="grass" data="type">Grass</option>
-                          <option value="ground" data="type">Ground</option>
-                          <option value="ice" data="type">Ice</option>
-                          <option value="normal" data="type">Normal</option>
-                          <option value="poison" data="type">Poison</option>
-                          <option value="psychic" data="type">Psychic</option>
-                          <option value="rock" data="type">Rock</option>
-                          <option value="steel" data="type">Steel</option>
-                          <option value="water" data="type">Water</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                <div class="column"></div>
-                <div class="column"></div>
-            </div>
-        </div>
-    </section>
+            <div class="columns is-centered">
+                <!-- <div class="column"></div> -->
 
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column"></div>
+                <div id="searchPokemon" class="columns is-multiline box"></div>
 
-                <div id="searchPokemon" class="column box"></div>
-
-                <div class="column"></div>
+                <!-- <div class="column"></div> -->
             </div>
         </div>
     </section>
