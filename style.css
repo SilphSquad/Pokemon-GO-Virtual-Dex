@@ -61,3 +61,18 @@ h3 {
     margin-right: 5px !important;
     margin-left: 5px !important;
 }
+
+#pokeball {
+    width: 60px;
+    height: 60px;
+    animation: pokeballRolling infinite 1s linear;
+  }
+  
+  @keyframes pokeballRolling {
+    0% {
+      transform: rotate(0) translate3D(0, 0, 0);    
+    }
+    100% {
+      transform: rotate(360deg) translate3D(0, 0, 0);
+    }
+  }
