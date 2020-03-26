@@ -35,9 +35,6 @@ $("#submit").click(function () {
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
-                if (spriteURL == null) {
-                    spriteURL = "images/NoImageAvailable.png"
-                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -46,7 +43,7 @@ $("#submit").click(function () {
                 var targetDiv = $(`[id=${pokemonDexNum}]`)
                 pokeImageDiv.addClass("card-image")
                 pokeFigure.addClass("image is-128x128")
-                targetDiv.addClass("card column is-one-third")
+                targetDiv.addClass("card")
                 targetDiv.attr("id", pokemonDexNum)
                 targetDiv.append(pokeImageDiv)
                 pokeImageDiv.append(pokeFigure)
@@ -108,6 +105,8 @@ $("#submit").click(function () {
                 })
             }
         })
+
+        
     // this is if they chose a specific type
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
       
@@ -120,7 +119,7 @@ $("#submit").click(function () {
             var pokemonURL = typeID.pokemon[i].pokemon.url
             var newPokemonDiv = $("<div>")
             var res = typeID.pokemon[i].pokemon.url.split("/");
-            newPokemonDiv.addClass("card column is-one-third")
+            newPokemonDiv.addClass("card")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -131,9 +130,6 @@ $("#submit").click(function () {
                 method: "GET"
             }).then(function(individualPokemon){
                 var spriteURL = individualPokemon.sprites.front_default
-                if (spriteURL == null) {
-                    spriteURL = "images/NoImageAvailable.png"
-                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -212,10 +208,7 @@ $("#submit").click(function () {
             var pokeContent = $("<div>")
             var pokeMedia = $("<div>")
             var pokeFigure = $("<figure>")
-            var spriteURL = pokemonID.sprites.front_default
-            if (spriteURL == null) {
-                spriteURL = "images/NoImageAvailable.png"
-            }
+            var imgURL = pokemonID.sprites.front_default
             var image = $("<img>").attr("src", imgURL)
             var pokeName = $("<p>")
             var pokeNameURL = pokemonID.name
@@ -228,7 +221,7 @@ $("#submit").click(function () {
             var type2URL = pokemonID.types[1]?" | " + pokemonID.types[1].type.name: ""
             var idURL = pokemonID.id
 
-            newPokemon.addClass("card column is-one-third")
+            newPokemon.addClass("card")
             pokeContent.addClass("card-content")
             pokeMedia.addClass("media")
             pokeImage.addClass("media-left")
@@ -272,7 +265,6 @@ $("#submit").click(function () {
             $("#searchPokemon").append(newPokemon)
         })
     }
-    // when the button is pressed a gif appears
     $("#gif").attr("src", "")
     var gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q="
 
@@ -282,7 +274,7 @@ $("#submit").click(function () {
         var gifSearch = inputedValue.split("/")
         gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=" + gifSearch[1] +"-pokemon"
     }
-    
+
     $.ajax({
         url: gifURL,
         method: "GET"
@@ -294,8 +286,6 @@ $("#submit").click(function () {
         $("#gif").attr("src", pokemonGIF)
         }
     })
-
-
 
 })
 
@@ -326,7 +316,7 @@ $("#genSelect").change("data-option", function(){
             var pokemonGenURL = pokemonGen.results[i].url
             var newPokemonDiv = $("<div>")
             var res = pokemonGen.results[i].url.split("/");
-            newPokemonDiv.addClass("card column is-one-third")
+            newPokemonDiv.addClass("card")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -338,9 +328,6 @@ $("#genSelect").change("data-option", function(){
                 var newPokemon = $("<p>")
         
                 var spriteURL = individualPokemon.sprites.front_default
-                if (spriteURL == null) {
-                    spriteURL = "images/NoImageAvailable.png"
-                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -406,6 +393,34 @@ $("#genSelect").change("data-option", function(){
                 pokeContent.prepend(pokeMedia)
                 targetDiv.append(pokeContent)
             })
+        }
+    })
+    $("#gif").attr("src", "")
+    if (this.value === "g1"){
+        gifURL = 
+    }else if (this.value === "g2"){
+        gifURL =
+    }else if (this.value === "g3"){
+        gifURL =
+    }else if (this.value === "g4"){
+        gifURL =
+    }else if (this.value === "g5"){
+        gifURL =
+    }else if (this.value === "g6"){
+        gifURL =
+    }else if (this.value === "g7"){
+        gifURL =
+    }
+
+    $.ajax({
+        url: gifURL,
+        method: "GET"
+    }).then(function(response){
+        for (i=0; i<1;i++){
+        var randomGIF = Math.floor(Math.random() * response.results.length)
+        var pokemonGIF = response.results[randomGIF].media[0].tinygif.url
+
+        $("#gif").attr("src", pokemonGIF)
         }
     })
 })
@@ -459,7 +474,7 @@ $("#typeSelect").change("data-type", function(){
             var pokemonTypeURL = typeID.pokemon[i].pokemon.url
             var newPokemonDiv = $("<div>")
             var res = typeID.pokemon[i].pokemon.url.split("/");
-            newPokemonDiv.addClass("card column is-one-third")
+            newPokemonDiv.addClass("card")
             newPokemonDiv.attr("id", res[6])
             newPokemonDiv.attr("data","name")
             $("#searchPokemon").append(newPokemonDiv)
@@ -467,12 +482,9 @@ $("#typeSelect").change("data-type", function(){
                 url: pokemonTypeURL,
                 method: "GET"
             }).then(function(individualPokemon){
-                var newPokemon = $("<p>") 
+                var newPokemon = $("<p>")
         
                 var spriteURL = individualPokemon.sprites.front_default
-                if (spriteURL == null) {
-                    spriteURL = "images/NoImageAvailable.png"
-                }
                 var pokeImageDiv = $("<div>")
                 var pokeImage = $("<img>").attr("src", spriteURL)
                 pokeImage.attr("alt", "pokemon-sprite")
@@ -537,12 +549,15 @@ $("#typeSelect").change("data-type", function(){
                 pokeMediaContent.append(pokeCardContent)
                 pokeContent.prepend(pokeMedia)
                 targetDiv.append(pokeContent)
+                pokemonArray.push(pokeContent)
+                
             })
         }
+     
     })
-
     $("#gif").attr("src", "")
     var gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=" + this.value + "-pokemon"
+
     $.ajax({
         url: gifURL,
         method: "GET"
@@ -554,40 +569,38 @@ $("#typeSelect").change("data-type", function(){
         $("#gif").attr("src", pokemonGIF)
         }
     })
-
-
 })
 
 // the comparison go button
-$("#compareGO").click("data-name", function(){
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
-            "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
-        }
-    }
+// $("#compareGO").click("data-name", function(){
+//     var settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": "https://pokemon-go1.p.rapidapi.com/released_pokemon.json",
+//         "method": "GET",
+//         "headers": {
+//             "x-rapidapi-host": "pokemon-go1.p.rapidapi.com",
+//             "x-rapidapi-key": "295660fa97msh39e208df7e044f5p14aa64jsnb262e3e093ec"
+//         }
+//     }
     
-    $.ajax(settings).done(function (response) {
+//     $.ajax(s ettings).done(function (response) {
         
-        $("#searchPokemon").empty()
-        for(var index in response){
-            goArray.push(response[index])
-        }
-        console.log(goArray)
-        // console.log(pokemonArray)
+//         $("#searchPokemon").empty()
+//         for(var index in response){
+//             goArray.push(response[index])
+//         }
+//         console.log(goArray)
+//         // console.log(pokemonArray)
 
-        // for (i=0; i< goArray.length; i++){
-        //     var goID = goArray[i].id
-        //     var pokeID = parseInt($(pokemonArray[i]).attr("id"))
-        //     console.log(goArray[i].id)
-        //     console.log(parseInt($(pokemonArray[i]).attr("id")))
+//         // for (i=0; i< goArray.length; i++){
+//         //     var goID = goArray[i].id
+//         //     var pokeID = parseInt($(pokemonArray[i]).attr("id"))
+//         //     console.log(goArray[i].id)
+//         //     console.log(parseInt($(pokemonArray[i]).attr("id")))
 
-        // }
+//         // }
 
-    });
+//     });
 
-})
+// })
