@@ -1,6 +1,7 @@
 var pokemonArray = []
 
 function multiplePokemon(multiplePokeObject){
+    $("#searchPokemon").css("visibility", "visible");
     for (i=0; i<multiplePokeObject.results.length; i++){
     // for (i=0; i<15; i++){
         var pokemonURL = multiplePokeObject.results[i].url
@@ -20,6 +21,7 @@ function multiplePokemon(multiplePokeObject){
 }
 
 function multiplePokemonType(multiplePokeObject){
+    $("#searchPokemon").css("visibility", "visible");
     for (i=0; i<multiplePokeObject.pokemon.length; i++){
     // for (i=0; i<15; i++){
         var pokemonURL = multiplePokeObject.pokemon[i].pokemon.url
@@ -40,6 +42,7 @@ function multiplePokemonType(multiplePokeObject){
 }
 
 function cardCreation(individualPokeObject){
+    $("#searchPokemon").css("visibility", "visible");
     var spriteURL = individualPokeObject.sprites.front_default
     if (spriteURL == null) {
         spriteURL = "images/NoImageAvailable.png"
@@ -112,7 +115,9 @@ function cardCreation(individualPokeObject){
 
 $("#submit").click(function () {
     $("#searchPokemon").empty();
-    var inputedValue = $("#userInput").val()
+    // $("#searchPokemon").css("visibility", "visible");
+    var lowerCase = $("#userInput").val()
+    var inputedValue = lowerCase.toLowerCase();
     if (inputedValue === "all") {
         inputedValue = "pokemon?&limit=964"
     } else if (inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" || inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" || inputedValue === "steel" || inputedValue === "water") {
