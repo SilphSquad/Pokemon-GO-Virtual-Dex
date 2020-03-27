@@ -1,3 +1,4 @@
+// global array variables 
 var pokemonArray = []
 
 function multiplePokemon(multiplePokeObject){
@@ -77,25 +78,25 @@ function cardCreation(individualPokeObject){
     pokeImageDiv.addClass("media-left")
     pokeFigure.addClass("image is-128x128")
     pokeMediaContent.addClass("media-content")
-    pokeName.addClass("title is-4")
+    pokeName.addClass("title is-4 pokeName")
     pokeCardContent.addClass("subtitle is-6")
 
     type.html("Type: " + type1URL + "  " + type2URL)
     idNumber.html("Pok&eacute;dex Entry: " + idURL)
 
-    if (idURL >= 1 && idURL <= 151){
+    if (idURL >= 1 && idURL <= 151) {
         generation.html("Generation: 1")
-    }else if (idURL >= 152 && idURL <= 251){
+    } else if (idURL >= 152 && idURL <= 251) {
         generation.html("Generation: 2")
-    }else if (idURL >= 252 && idURL <= 386){
+    } else if (idURL >= 252 && idURL <= 386) {
         generation.html("Generation: 3")
-    }else if (idURL >= 387 && idURL <= 494){
+    } else if (idURL >= 387 && idURL <= 494) {
         generation.html("Generation: 4")
-    }else if (idURL >= 495 && idURL <= 649){
+    } else if (idURL >= 495 && idURL <= 649) {
         generation.html("Generation: 5")
-    }else if (idURL >= 650 && idURL <= 721){
+    } else if (idURL >= 650 && idURL <= 721) {
         generation.html("Generation: 6")
-    }else if (idURL >= 722 && idURL <= 808){
+    } else if (idURL >= 722 && idURL <= 808) {
         generation.html("Generation: 7")
     }
 
@@ -114,10 +115,11 @@ function cardCreation(individualPokeObject){
 }
 
 $("#submit").click(function () {
+    // empties the result box
     $("#searchPokemon").empty();
-    // $("#searchPokemon").css("visibility", "visible");
-    var lowerCase = $("#userInput").val()
-    var inputedValue = lowerCase.toLowerCase();
+
+    var inputedValue = $("#userInput").val().toLowerCase()
+
     if (inputedValue === "all") {
         inputedValue = "pokemon?&limit=964"
     } else if (inputedValue === "bug" || inputedValue === "dark" || inputedValue === "dragon" || inputedValue === "electric" || inputedValue === "fairy" || inputedValue === "fighting" || inputedValue === "fire" || inputedValue === "flying" || inputedValue === "ghost" || inputedValue === "grass" || inputedValue === "ground" || inputedValue === "ice" || inputedValue === "normal" || inputedValue === "poison" || inputedValue === "psychic" || inputedValue === "rock" || inputedValue === "steel" || inputedValue === "water") {
@@ -135,8 +137,9 @@ $("#submit").click(function () {
             multiplePokemon(pokemonID)
         })
 
+        
+    // this is if they chose a specific type
     } else if (inputedValue === "type/bug" || inputedValue === "type/dark" || inputedValue === "type/dragon" || inputedValue === "type/electric" || inputedValue === "type/fairy" || inputedValue === "type/fighting" || inputedValue === "type/fire" || inputedValue === "type/flying" || inputedValue === "type/ghost" || inputedValue === "type/grass" || inputedValue === "type/ground" || inputedValue === "type/ice" || inputedValue === "type/normal" || inputedValue === "type/poison" || inputedValue === "type/psychic" || inputedValue === "type/rock" || inputedValue === "type/steel" || inputedValue === "type/water") {
-      
         // This ajax call retrieves all pokemon of a certain type
         $.ajax({
             url: pokeapiURL,
@@ -145,7 +148,7 @@ $("#submit").click(function () {
             multiplePokemonType(typeID)
         }) 
 
-    } else {//individual
+    } else { //individual
         $.ajax({
             url: pokeapiURL,
             method: "GET"
@@ -157,33 +160,54 @@ $("#submit").click(function () {
             cardCreation(pokemonID)
         })
     }
+    $("#gif").attr("src", "")
+    var gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q="
+
+    if(inputedValue === "pokemon?&limit=964"){
+        gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=pokemon"
+    } else {
+        var gifSearch = inputedValue.split("/")
+        gifURL = "https://api.tenor.com/v1/search?contentfilter=high&q=" + gifSearch[1] +"-pokemon"
+    }
+
+    $.ajax({
+        url: gifURL,
+        method: "GET"
+    }).then(function(response){
+        for (i=0; i<1;i++){
+        var randomGIF = Math.floor(Math.random() * response.results.length)
+        var pokemonGIF = response.results[randomGIF].media[0].tinygif.url
+
+        $("#gif").attr("src", pokemonGIF)
+        }
+    })
+
 })
 
 $("#genSelect").change("data-option", function(){
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
 
-    if (this.value === "g1"){
+    if (this.value === "g1") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?limit=151"
 
-    }else if (this.value === "g2"){
+    } else if (this.value === "g2") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=151&limit=100"
 
-    }else if (this.value === "g3"){
+    } else if (this.value === "g3") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=251&limit=135"
 
-    }else if (this.value === "g4"){
+    } else if (this.value === "g4") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=386&limit=107"
 
-    }else if (this.value === "g5"){
+    } else if (this.value === "g5") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=494&limit=155"
 
-    }else if (this.value === "g6"){
+    } else if (this.value === "g6") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=649&limit=72"
 
-    }else if (this.value === "g7"){
+    } else if (this.value === "g7") {
         pokeapiURL = "https://pokeapi.co/api/v2/pokemon?offset=721&limit=86"
-
     }
     $.ajax({
         url: pokeapiURL,
@@ -192,45 +216,45 @@ $("#genSelect").change("data-option", function(){
         multiplePokemon(pokemonGen)})
 })
 
-$("#typeSelect").change("data-type", function(){
+$("#typeSelect").change("data-type", function () {
     $("#searchPokemon").empty();
     var pokeapiURL = "https://pokeapi.co/api/v2/"
 
-    if(this.value === "bug"){
+    if (this.value === "bug") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/bug"
-    }else if(this.value === "dark"){
+    } else if (this.value === "dark") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/dark"
-    }else if(this.value === "dragon"){
+    } else if (this.value === "dragon") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/dragon"
-    }else if(this.value === "electric"){
+    } else if (this.value === "electric") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/electric"
-    }else if(this.value === "fairy"){
+    } else if (this.value === "fairy") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/fairy"
-    }else if(this.value === "fighting"){
+    } else if (this.value === "fighting") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/fighting"
-    }else if(this.value === "fire"){
+    } else if (this.value === "fire") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/fire"
-    }else if(this.value === "flying"){
+    } else if (this.value === "flying") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/flying"
-    }else if(this.value === "ghost"){
+    } else if (this.value === "ghost") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/ghost"
-    }else if(this.value === "grass"){
+    } else if (this.value === "grass") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/grass"
-    }else if(this.value === "ground"){
+    } else if (this.value === "ground") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/ground"
-    }else if(this.value === "ice"){
+    } else if (this.value === "ice") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/ice"
-    }else if(this.value === "normal"){
+    } else if (this.value === "normal") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/normal"
-    }else if(this.value === "poison"){
+    } else if (this.value === "poison") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/poison"
-    }else if(this.value === "psychic"){
+    } else if (this.value === "psychic") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/psychic"
-    }else if(this.value === "rock"){
+    } else if (this.value === "rock") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/rock"
-    }else if(this.value === "steel"){
+    } else if (this.value === "steel") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/steel"
-    }else if(this.value === "water"){
+    } else if (this.value === "water") {
         pokeapiURL = "https://pokeapi.co/api/v2/type/water"
     }
     $.ajax({
@@ -285,3 +309,7 @@ $("#compareGO").click("data-name", function(){
         }
     });
 })
+var aliceTumbling = [
+  { transform: 'rotate(0) translate3D(-50%, -50%, 0)'},
+  { transform: 'rotate(360deg) translate3D(-50%, -50%, 0)'}
+];
