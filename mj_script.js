@@ -254,46 +254,54 @@ $("#compareGO").click("data-name", function(){
     }
     
     $.ajax(settings).done(function (response) {
+        // console.log(response) // response is an object of all the pokemon in pogo with key pair national dex num, then another object as the value. this object has the national dex num and its name
         var goArray = []
         // $("#searchPokemon").empty()
         for(var index in response){
             goArray.push(response[index])
         }
-        console.log(goArray)
-        console.log(pokemonArray)
+        // console.log(goArray) // goArray becomes an array with each element being an object equivalent to the key pairs in response, in other words national dex num: name 
+        // console.log(pokemonArray) // is empty
 
-        var cards = document.querySelectorAll(".card");
+        var cards = document.querySelectorAll(".card"); //cards is now an object
 
-        console.log(cards);
+        // console.log(cards.length);
 
         for (let j = 0; j < cards.length; j++) {
+            var currentCard = cards[j]
+            var currentCardTitle = currentCard.children[0].children[0].children[1].firstElementChild
             var pokeID = parseInt($(cards[j]).attr("id"));
             var goID = parseInt($(goArray[j]).attr("id"));
             var goName = goArray[j].name;
 
             for (let k = 0; k < goArray.length; k++) {
-                var goID = parseInt($(goArray[k]).attr("id"));
+                var newGoID = parseInt($(goArray[k]).attr("id"));
 
-                if (pokeID === goID){ 
-                    console.log("MATCH");
-                    console.log("pokeArrayID " + pokeID);
-                    console.log("goArrayID " + goID);
-                    console.log("goArrayName " + goArray[k].name)
-                    console.log(goArray);
+                if (pokeID === newGoID){ 
                     goArray.splice(0, 1);
-                    console.log(goArray);
+                    // currentCard.attr("class","in-pokemon-go")
+                    // console.log("after splice" + goArray.length);
+                    currentCardTitle.classList.add("in-pokemon-go")
 
                     // TODO: toggle class for match
 
-                    cards[k].toggle("in-pokemon-go");
+                    // cards[k].classList.add("in-pokemon-go");
 
-                    console.log(cards[j]);
-                    break;
+                    // console.log(cards[j]);
+                    // break;
 
-                }else{
-                    console.log("negative");
+                }
+                 else if (pokeID !== newGoID) {
+                    // console.log("negative");
+                    currentCardTitle.classList.add("not-in-pokemon-go")
                 }   
-            }
+                if (currentCardTitle.classList.contains("in-pokemon-go")) {
+                    // console.log("negative");
+                    currentCardTitle.classList.remove("not-in-pokemon-go")
+                }
+                }
         }
+        // var inPokeGoTitle = $("[class=in-pokemon-go]")
+        // console.log(inPokeGoTitle)
     });
 })

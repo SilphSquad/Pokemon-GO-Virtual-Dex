@@ -255,45 +255,33 @@ $("#compareGO").click("data-name", function(){
     
     $.ajax(settings).done(function (response) {
         var goArray = []
-        // $("#searchPokemon").empty()
         for(var index in response){
             goArray.push(response[index])
         }
-        console.log(goArray)
-        console.log(pokemonArray)
 
-        var cards = document.querySelectorAll(".card");
-
-        console.log(cards);
+        var cards = document.querySelectorAll(".card"); 
 
         for (let j = 0; j < cards.length; j++) {
+            var currentCard = cards[j]
+            var currentCardTitle = currentCard.children[0].children[0].children[1].firstElementChild
             var pokeID = parseInt($(cards[j]).attr("id"));
             var goID = parseInt($(goArray[j]).attr("id"));
             var goName = goArray[j].name;
 
             for (let k = 0; k < goArray.length; k++) {
-                var goID = parseInt($(goArray[k]).attr("id"));
+                var newGoID = parseInt($(goArray[k]).attr("id"));
 
-                if (pokeID === goID){ 
-                    console.log("MATCH");
-                    console.log("pokeArrayID " + pokeID);
-                    console.log("goArrayID " + goID);
-                    console.log("goArrayName " + goArray[k].name)
-                    console.log(goArray);
+                if (pokeID === newGoID){ 
                     goArray.splice(0, 1);
-                    console.log(goArray);
-
-                    // TODO: toggle class for match
-
-                    cards[k].toggle("in-pokemon-go");
-
-                    console.log(cards[j]);
-                    break;
-
-                }else{
-                    console.log("negative");
+                    currentCardTitle.classList.add("in-pokemon-go")
+                }
+                 else if (pokeID !== newGoID) {
+                    currentCardTitle.classList.add("not-in-pokemon-go")
                 }   
-            }
+                if (currentCardTitle.classList.contains("in-pokemon-go")) {
+                    currentCardTitle.classList.remove("not-in-pokemon-go")
+                }
+                }
         }
     });
 })

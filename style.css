@@ -7,8 +7,8 @@
 }
 
 .in-pokemon-go {
-    background-color: #008000!important;
-    color: #fff!important;
+    color: #008000!important;
+    /* color: #fff!important; */
 }
 
 .not-in-pokemon-go {
