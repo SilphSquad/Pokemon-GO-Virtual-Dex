@@ -284,13 +284,15 @@ $("#compareGO").click("data-name", function(){
         }
 
         var cards = document.querySelectorAll(".card"); 
+    
 
         for (let j = 0; j < cards.length; j++) {
+            console.log(cards.length)
             var currentCard = cards[j]
             var currentCardTitle = currentCard.children[0].children[0].children[1].firstElementChild
             var pokeID = parseInt($(cards[j]).attr("id"));
-            var goID = parseInt($(goArray[j]).attr("id"));
-            var goName = goArray[j].name;
+            // var goID = parseInt($(goArray[j]).attr("id"));
+            // var goName = goArray[j].name;
 
             for (let k = 0; k < goArray.length; k++) {
                 var newGoID = parseInt($(goArray[k]).attr("id"));
