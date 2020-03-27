@@ -291,8 +291,7 @@ $("#compareGO").click("data-name", function(){
             var currentCard = cards[j]
             var currentCardTitle = currentCard.children[0].children[0].children[1].firstElementChild
             var pokeID = parseInt($(cards[j]).attr("id"));
-            // var goID = parseInt($(goArray[j]).attr("id"));
-            // var goName = goArray[j].name;
+
 
             for (let k = 0; k < goArray.length; k++) {
                 var newGoID = parseInt($(goArray[k]).attr("id"));
